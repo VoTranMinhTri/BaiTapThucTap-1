@@ -24,3 +24,15 @@ Route::get('/event', function () {
 Route::get('/event-detail', function () {
     return view('event-detail');
 });
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+Route::get('/pay', function () {
+    return view('pay');
+});
+Route::get('/pay-success', function () {
+    return view('pay-success');
+});
+
