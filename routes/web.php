@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SuKienController;
+use App\Http\Controllers\TheThanhToanController;
+use App\Http\Controllers\VeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-
-Route::get('/event', function () {
-    return view('event');
-});
-
 Route::get('/event-detail', function () {
     return view('event-detail');
 });
@@ -32,7 +28,20 @@ Route::get('/contact', function () {
 Route::get('/pay', function () {
     return view('pay');
 });
+
 Route::get('/pay-success', function () {
     return view('pay-success');
 });
+
+//Home
+Route::get('/',[HomeController::class,'index']);
+//Đặt vé
+Route::get('/datve',[HomeController::class,'datve']);
+//Trang sự kiện
+Route::get('/event',[SuKienController::class,'index']);
+Route::resource('suKien',SuKienController::class);
+//Thanh toán
+Route::post('/thanhtoan',[TheThanhToanController::class,'thanhtoan']);
+//Danh sách vé
+Route::resource('ve',VeController::class);
 

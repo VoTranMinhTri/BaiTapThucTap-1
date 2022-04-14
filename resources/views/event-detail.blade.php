@@ -2,45 +2,31 @@
 @section('content')
 <div class="frame">
     <div class="content-wraper">
-        <div class="title-text-event-detail">Sự kiện 1</div>
+        <div class="title-text-event-detail">{{ $sukien->ten_su_kien }}</div>
         <img class="hoagiay-1" src="{{ asset('assets/images/hoagiay-1.png') }}">
         <div class="event-detail-main">
             <div class="event-detail-box-inside">
                 <div class="evd-box-1">
-                    <img class="evd-box-1-edp1" src="{{ asset('assets/images/ed1.png') }}">
+                    <img class="evd-box-1-edp1" src="{{ asset('assets/images/'.$hinhanhsukien[0]->hinh_anh) }}">
                     <div class="info">
                         <div class="date">
                             <img class="icon-calendar" src="{{ asset('assets/images/icon-calendar.png') }}">
-                            <div class="text-date">30/05/2021 - 01/06/2021</div>
+                            <div class="text-date">{{ $sukien->ngay_bat_dau }} - {{ $sukien->ngay_ket_thuc }}</div>
                         </div>
-                        <div class="title-event-secondary">Đầm sen Park</div>
-                        <div class="price-event">25.000 VNĐ</div>
+                        <div class="title-event-secondary">{{ $sukien->dia_diem }}</div>
+                        <div class="price-event">{{ number_format($sukien->gia,0) }} VNĐ</div>
                     </div>
                 </div>
                 <div class="evd-box-2">
-                    <img class="evd-box-2-edp2" src="{{ asset('assets/images/ed2.png') }}">
-                    <div class="text event-detail-text">Lorem Ipsum is not simply random text. It has roots in a
-                        piece
-                        of classical Latin literature from 45 BC, making it over 2000 years old. words,
-                        consectetur, from a Lorem Ipsum passage, and going through the cites of the word in
-                        classical literature,</div>
+                    <img class="evd-box-2-edp2" src="{{ asset('assets/images/'.$hinhanhsukien[1]->hinh_anh) }}">
+                    <div class="text event-detail-text">{{ $noidungsukien[1]->noi_dung }}</div>
                 </div>
                 <div class="evd-box-3">
-                    <div class="text event-detail-text">Lorem Ipsum is not simply random text. It has roots in a
-                        piece
-                        of classical Latin literature from 45 BC, making it over 2000 years old. words,
-                        consectetur, from a Lorem Ipsum passage, and going through the cites of the word in
-                        classical literature,</div>
-                    <img class="evd-box-3-edp3" src="{{ asset('assets/images/ed2.png') }}">
+                    <div class="text event-detail-text">{{ $noidungsukien[2]->noi_dung }}</div>
+                    <img class="evd-box-3-edp3" src="{{ asset('assets/images/'.$hinhanhsukien[2]->hinh_anh) }}">
                 </div>
                 <div class="evd-box-4">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
-                    the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-                    specimen book. It has survived not only five centuries, but also the leap into
-                    electronic sdsd typesetting, remaining cssa essentially unchanged. It was popularised in
-                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, of Lorem
-                    Ipsum.
+                    {{ $noidungsukien[0]->noi_dung }}
                 </div>
             </div>
         </div>

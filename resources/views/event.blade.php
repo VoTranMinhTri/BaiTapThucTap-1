@@ -7,91 +7,25 @@
         <div class="list-news">
             <div class="owl-stage-outer" data-box-id='boxscroll'>
                 <div class="owl-stage">
+                    @foreach ($sukien as $tp)
                     <div class="owl-item">
-                        <img class="image-event" src="{{ asset('assets/images/sukien-1.png') }}">
+                        <img class="image-event" src="{{ asset('assets/images/'.$tp->hinh_anh) }}">
                         <div class="inside-event-box">
                             <div class="title-date-event">
                                 <div class="title-event">
-                                    <div class="title-event-main">Sự kiện 1</div>
-                                    <div class="title-event-secondary">Đầm sen Park</div>
+                                    <div class="title-event-main">{{ $tp->ten_su_kien }}</div>
+                                    <div class="title-event-secondary">{{ $tp->dia_diem }}</div>
                                 </div>
                                 <div class="date-event">
                                     <img class="icon-calendar" src="{{ asset('assets/images/icon-calendar.png') }}">
-                                    <div class="text-date">30/05/2021 - 01/06/2021</div>
+                                    <div class="text-date">{{ $tp->ngay_bat_dau }} - {{ $tp->ngay_ket_thuc }}</div>
                                 </div>
                             </div>
-                            <div class="price-event">25.000 VNĐ</div>
-                            <a href="/event-detail" class="btn-xemchitiet"></a>
+                            <div class="price-event">{{ number_format($tp->gia,0) }} VNĐ</div>
+                            <a href="{{ route('suKien.show', ['suKien'=> $tp]) }}" class="btn-xemchitiet"></a>
                         </div>
                     </div>
-                    <div class="owl-item">
-                        <img class="image-event" src="{{ asset('assets/images/sukien-1.png') }}">
-                        <div class="inside-event-box">
-                            <div class="title-date-event">
-                                <div class="title-event">
-                                    <div class="title-event-main">Sự kiện 1</div>
-                                    <div class="title-event-secondary">Đầm sen Park</div>
-                                </div>
-                                <div class="date-event">
-                                    <img class="icon-calendar" src="{{ asset('assets/images/icon-calendar.png') }}">
-                                    <div class="text-date">30/05/2021 - 01/06/2021</div>
-                                </div>
-                            </div>
-                            <div class="price-event">25.000 VNĐ</div>
-                            <a href="#" class="btn-xemchitiet"></a>
-                        </div>
-                    </div>
-                    <div class="owl-item">
-                        <img class="image-event" src="{{ asset('assets/images/sukien-1.png') }}">
-                        <div class="inside-event-box">
-                            <div class="title-date-event">
-                                <div class="title-event">
-                                    <div class="title-event-main">Sự kiện 1</div>
-                                    <div class="title-event-secondary">Đầm sen Park</div>
-                                </div>
-                                <div class="date-event">
-                                    <img class="icon-calendar" src="{{ asset('assets/images/icon-calendar.png') }}">
-                                    <div class="text-date">30/05/2021 - 01/06/2021</div>
-                                </div>
-                            </div>
-                            <div class="price-event">25.000 VNĐ</div>
-                            <a href="#" class="btn-xemchitiet"></a>
-                        </div>
-                    </div>
-                    <div class="owl-item">
-                        <img class="image-event" src="{{ asset('assets/images/sukien-1.png') }}">
-                        <div class="inside-event-box">
-                            <div class="title-date-event">
-                                <div class="title-event">
-                                    <div class="title-event-main">Sự kiện 1</div>
-                                    <div class="title-event-secondary">Đầm sen Park</div>
-                                </div>
-                                <div class="date-event">
-                                    <img class="icon-calendar" src="{{ asset('assets/images/icon-calendar.png') }}">
-                                    <div class="text-date">30/05/2021 - 01/06/2021</div>
-                                </div>
-                            </div>
-                            <div class="price-event">25.000 VNĐ</div>
-                            <a href="#" class="btn-xemchitiet"></a>
-                        </div>
-                    </div>
-                    <div class="owl-item">
-                        <img class="image-event" src="{{ asset('assets/images/sukien-1.png') }}">
-                        <div class="inside-event-box">
-                            <div class="title-date-event">
-                                <div class="title-event">
-                                    <div class="title-event-main">Sự kiện 1</div>
-                                    <div class="title-event-secondary">Đầm sen Park</div>
-                                </div>
-                                <div class="date-event">
-                                    <img class="icon-calendar" src="{{ asset('assets/images/icon-calendar.png') }}">
-                                    <div class="text-date">30/05/2021 - 01/06/2021</div>
-                                </div>
-                            </div>
-                            <div class="price-event">25.000 VNĐ</div>
-                            <a href="#" class="btn-xemchitiet"></a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

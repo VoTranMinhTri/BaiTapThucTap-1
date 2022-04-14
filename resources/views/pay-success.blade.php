@@ -6,63 +6,33 @@
                 <div class="list-ve">
                     <div class="owl-stage-outer" data-box-id='boxscroll'>
                         <div class="owl-stage">
+                            @foreach ($dsve as $ve)
                             <div class="owl-item-ve">
                                 <div class="box-ve">
-                                    <img src="{{ asset('assets/images/maqr.png') }}" class="maqr">
-                                    <div class="idve">ALT20210501</div>
+                                    <img src="{{ asset('assets/images/'.$ve->hinh_anh_ma_qr) }}" class="maqr">
+                                    <div class="idve">{{ $ve->idve }}</div>
                                     <div class="vecong">VÉ CỔNG</div>
                                     <div class="gach">---</div>
-                                    <div class="ngaysudung">Ngày sử dụng: 31/05/2021</div>
+                                    <div class="ngaysudung">Ngày sử dụng: {{ $ve->ngay_su_dung }}</div>
                                     <img src="{{ asset('assets/images/tick.png') }}" class="tick">
                                 </div>
                             </div>
-                            <div class="owl-item-ve">
-                                <div class="box-ve">
-                                    <img src="{{ asset('assets/images/maqr.png') }}" class="maqr">
-                                    <div class="idve">ALT20210501</div>
-                                    <div class="vecong">VÉ CỔNG</div>
-                                    <div class="gach">---</div>
-                                    <div class="ngaysudung">Ngày sử dụng: 31/05/2021</div>
-                                    <img src="{{ asset('assets/images/tick.png') }}" class="tick">
-                                </div>
-                            </div>
-                            <div class="owl-item-ve">
-                                <div class="box-ve">
-                                    <img src="{{ asset('assets/images/maqr.png') }}" class="maqr">
-                                    <div class="idve">ALT20210501</div>
-                                    <div class="vecong">VÉ CỔNG</div>
-                                    <div class="gach">---</div>
-                                    <div class="ngaysudung">Ngày sử dụng: 31/05/2021</div>
-                                    <img src="{{ asset('assets/images/tick.png') }}" class="tick">
-                                </div>
-                            </div>
-                            <div class="owl-item-ve">
-                                <div class="box-ve">
-                                    <img src="{{ asset('assets/images/maqr.png') }}" class="maqr">
-                                    <div class="idve">ALT20210501</div>
-                                    <div class="vecong">VÉ CỔNG</div>
-                                    <div class="gach">---</div>
-                                    <div class="ngaysudung">Ngày sử dụng: 31/05/2021</div>
-                                    <img src="{{ asset('assets/images/tick.png') }}" class="tick">
-                                </div>
-                            </div>
-                            <div class="owl-item-ve">
-                                <div class="box-ve">
-                                    <img src="{{ asset('assets/images/maqr.png') }}" class="maqr">
-                                    <div class="idve">ALT20210501</div>
-                                    <div class="vecong">VÉ CỔNG</div>
-                                    <div class="gach">---</div>
-                                    <div class="ngaysudung">Ngày sử dụng: 31/05/2021</div>
-                                    <img src="{{ asset('assets/images/tick.png') }}" class="tick">
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
                 <button type="button" role="presentation" class="previous-btn disabled"></button>
                 <button type="button" role="presentation" class="next-btn"></button>
-                <div class="text-soluongve">Số lượng: 5 vé</div>
-                <div class="text-trang">Trang 1/3</div>
+                <div class="text-soluongve">Số lượng: <?php echo count($dsve) ?></div>
+                <div class="text-trang">Trang 1/
+                <?php
+                    if(count($dsve)<=4){
+                        echo 1;
+                    }
+                    else{
+                        echo(ceil(count($dsve)/4));
+                    }
+                 ?></div>
                 <img src="{{ asset('assets/images/alvin.png') }}" class="alvin-picture">
             </div>
             <button class="btn-taive"></button>
