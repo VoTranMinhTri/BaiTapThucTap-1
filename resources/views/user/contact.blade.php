@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('user/layouts.app')
 @section('content')
     <div class="frame">
         <div class="content-wraper">
@@ -7,19 +7,19 @@
                     <div class="text-contact">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac
                         mollis
                         justo. Etiam volutpat tellus quis risus volutpat, ut posuere ex facilisis.</div>
-                    <form>
+                    <form action='/guimaillienhe' method="get">
                         <div class="group-input-contact">
                             <div class="group-input-contact-inside-1">
-                                <input type="text" class="input-contact-ten" placeholder="Tên">
-                                <input type="text" class="input-contact-sdt" placeholder="Số điện thoại">
+                                <input type="text" class="input-contact-ten" placeholder="Tên" name='hoten' required>
+                                <input type="text" class="input-contact-sdt" placeholder="Số điện thoại" name='sdt' required>
                             </div>
                             <div class="group-input-contact-inside-2">
-                                <input type="text" class="input-contact-email" placeholder="Email">
-                                <input type="text" class="input-contact-diachi" placeholder="Địa chỉ">
+                                <input type="email" class="input-contact-email" placeholder="Email" name='email' required>
+                                <input type="text" class="input-contact-diachi" placeholder="Địa chỉ" name='diachi' required>
                             </div>
                         </div>
-                        <textarea class="input-loinhan" placeholder="Lời nhắn"></textarea>
-                        <button class="btn-guilienhe"></button>
+                        <textarea class="input-loinhan" placeholder="Lời nhắn" name="loinhan"></textarea>
+                        <button type="submit" class="btn-guilienhe"></button>
                     </form>
                 </div>
                 <div class="khung-lienhe-2">
@@ -44,6 +44,18 @@
                     </div>
                 </div>
                 <img src="{{ asset('assets/images/alex.png') }}" class="alex-picture">
+                @if (Session::has('success'))
+                <div class="popup-thongbao active">
+                    <a onclick="closepopup()" class="close" data-dismiss="alert" aria-label="close"
+                        style="top: 10px;color: orange;font-weight: bold;">&times;</a>
+                    <div class="bg-thongbao"></div>
+                    <div class="thongbao">
+                        <div class="thongbaolienhe">
+                            <p>Gửi liên hệ thành công. Vui lòng kiên nhẫn đợi phản hồi từ chúng tôi, bạn nhé!</p>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
         <img src="{{ asset('assets/images/lienhe-text.png') }}" class="lienhe-text">
@@ -69,4 +81,10 @@
             <div class="logo"></div>
         </a>
     </div>
+    <script>
+        function closepopup() {
+            var popup = document.querySelector('.popup-thongbao');
+            popup.className = popup.className.replace(' active', '');
+        }
+    </script>
 @endsection

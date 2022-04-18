@@ -1633,12 +1633,12 @@ padding-right: 20px;
 list-style-type: circle;
 }
 
-.thongbaoloi{
+.thongbao{
 position: absolute;
 z-index: 9999;
 }
 
-.bg-thongbaoloi{
+.bg-thongbao{
 position: fixed;
 top: 0;
 bottom: 0;
@@ -1649,14 +1649,14 @@ opacity: .8;
 z-index: 999;
 }
 
-.popup-thongbaoloi.active{
+.popup-thongbao.active{
 display: block;
 position: absolute;
 left: 36%;
 top: 10%;
 }
 
-.popup-thongbaoloi{
+.popup-thongbao{
 display: none;
 }
 
@@ -1668,5 +1668,27 @@ z-index: 10000;
 font-size: 30px;
 color: black;
 cursor: pointer;
+}
+
+.thongbaolienhe{
+position: relative;
+width: 472px;
+height: 169px;
+background: #FFFFFF;
+border-radius: 24px;
+}
+
+.thongbaolienhe p{
+position: absolute;
+left: 9.11%;
+right: 8.9%;
+bottom: 9.99%;
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 30px;
+color: #23221F;
+opacity: 0.7;
 }
 

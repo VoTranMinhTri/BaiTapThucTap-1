@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('user/layouts.app')
 @section('content')
     <div class="frame">
         <div class="content-wraper">
@@ -73,10 +73,10 @@
                     @endif --}}
                 </form>
                 @if ($errors->any())
-                    <div class="popup-thongbaoloi active">
+                    <div class="popup-thongbao active">
                         <a onclick="closepopup()" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <div class="bg-thongbaoloi"></div>
-                        <div class="thongbaoloi">
+                        <div class="bg-thongbao"></div>
+                        <div class="thongbao">
                             <img src="{{ asset('assets/images/thongbaoloi.png') }}">
                         </div>
                     </div>
@@ -111,7 +111,7 @@
     </div>
     <script>
         function closepopup() {
-            var popup = document.querySelector('.popup-thongbaoloi');
+            var popup = document.querySelector('.popup-thongbao');
             popup.className = popup.className.replace(' active', '');
         }
     </script>

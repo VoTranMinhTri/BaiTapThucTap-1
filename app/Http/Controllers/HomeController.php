@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function index()
     {
         $loaive = LoaiVe::all();
-        return view('index', ['loaive' => $loaive]);
+        return view('user/index', ['loaive' => $loaive]);
     }
 
     public function datve(Request $request)
@@ -48,6 +48,6 @@ class HomeController extends Controller
         //Tính tổng tiền
         $tongtien = $request->input('sove') * $giacualoaive->gia;
 
-        return view('pay',['loaive'=>$request->input('loaive'),'sove'=>$request->input('sove'),'hoten'=>$request->input('hoten'),'sdt'=>$request->input('sdt'),'email'=>$request->input('email'),'ngaysudung'=>$request->input('ngaysudung'),'tongtien'=>$tongtien]);
+        return view('user/pay',['loaive'=>$request->input('loaive'),'sove'=>$request->input('sove'),'hoten'=>$request->input('hoten'),'sdt'=>$request->input('sdt'),'email'=>$request->input('email'),'ngaysudung'=>$request->input('ngaysudung'),'tongtien'=>$tongtien]);
     }
 }

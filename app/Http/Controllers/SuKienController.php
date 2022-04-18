@@ -27,7 +27,7 @@ class SuKienController extends Controller
             $tp->ngay_ket_thuc = Carbon::createFromFormat('Y-m-d', $tp->ngay_ket_thuc)->format('d/m/Y');
 
         }
-        return view('event',['sukien'=>$sukien]);
+        return view('user/event',['sukien'=>$sukien]);
     }
 
     /**
@@ -65,7 +65,7 @@ class SuKienController extends Controller
         //Định dạng lại ngày
         $suKien->ngay_bat_dau = Carbon::createFromFormat('Y-m-d', $suKien->ngay_bat_dau)->format('d/m/Y');
         $suKien->ngay_ket_thuc = Carbon::createFromFormat('Y-m-d', $suKien->ngay_ket_thuc)->format('d/m/Y');
-        return view('event-detail',['sukien'=>$suKien,'noidungsukien'=>$noidungsukien,'hinhanhsukien'=>$hinhanhsukien]);
+        return view('user/event-detail',['sukien'=>$suKien,'noidungsukien'=>$noidungsukien,'hinhanhsukien'=>$hinhanhsukien]);
     }
 
     /**

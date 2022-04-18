@@ -21,7 +21,7 @@ class VeController extends Controller
         if(empty($dsve)){
             return redirect('/');
         }
-        return view('pay-success', ['dsve' => $dsve]);
+        return view('user/pay-success', ['dsve' => $dsve]);
     }
 
     /**
