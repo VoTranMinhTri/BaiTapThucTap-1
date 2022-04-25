@@ -57,7 +57,6 @@ class TheThanhToanController extends Controller
                     'ho_ten'=>$request->input('hoten'),
                     'sdt'=>$request->input('sdt'),
                     'email'=>$request->input('email'),
-                    'trang_thai'=>1,
                     'created_at'=> $thoigiantao
                 ]);
                 $ve->save();
@@ -73,6 +72,6 @@ class TheThanhToanController extends Controller
             // dd($dsve);
             return redirect()->route('ve.index')->with(['dsve'=>$dsve]);
         }
-        return view('user/pay',['errors'=>'errorMessage','loaive'=>$request->input('loaive'),'sove'=>$request->input('sove'),'hoten'=>$request->input('hoten'),'sdt'=>$request->input('sdt'),'email'=>$request->input('email'),'ngaysudung'=>$request->input('ngaysudung'),'tongtien'=>$request->input('tongtien')]);
+        return view('user/pay',['error'=>'errorMessage','loaive'=>$request->input('loaive'),'sove'=>$request->input('sove'),'hoten'=>$request->input('hoten'),'sdt'=>$request->input('sdt'),'email'=>$request->input('email'),'ngaysudung'=>$request->input('ngaysudung'),'tongtien'=>$request->input('tongtien')]);
     }
 }

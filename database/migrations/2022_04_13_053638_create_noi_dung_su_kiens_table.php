@@ -16,7 +16,7 @@ class CreateNoiDungSuKiensTable extends Migration
         Schema::create('noi_dung_su_kiens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('su_kien_id');
-            $table->string('noi_dung');
+            $table->string('noi_dung',500);
             $table->timestamps();
             $table->foreign('su_kien_id')->references('id')->on('su_kiens');
         });

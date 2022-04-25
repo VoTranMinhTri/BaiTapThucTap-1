@@ -14,14 +14,13 @@ class CreateVesTable extends Migration
     public function up()
     {
         Schema::create('ves', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->string('idve')->primary();
             $table->foreignId('loai_ve_id');
             $table->date('ngay_su_dung');
             $table->string('hinh_anh_ma_qr');
             $table->string('ho_ten');
             $table->string('sdt');
             $table->string('email');
-            $table->boolean('trang_thai');
             $table->timestamps();
             $table->foreign('loai_ve_id')->references('id')->on('loai_ves');
         });

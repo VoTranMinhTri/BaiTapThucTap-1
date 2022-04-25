@@ -12,11 +12,17 @@
 <body class="bg">
     <div class="main">
         <div class="box">
-            <img class="img-logodangnhap" src="{{ asset('assets/images/damsen-logo.png') }}">
+            <h1 class="title-dangnhap"><img class="img-logodangnhap" src="{{ asset('assets/images/damsen-logo.png') }}">
+            </h1>
             <h1 class="title-dangnhap">Đăng nhập</h1>
-            <form class="form-dangnhap">
+            <form class="form-dangnhap" method="post" action="/login">
+                @csrf
                 <input placeholder="Tên đăng nhập" class="input-normal" name="username" type="text">
                 <input placeholder="Mật khẩu" class="input-normal" name="password" type="password" id="pass">
+                @if ($errors->has('error'))
+                    <div style="margin-bottom: 2%;margin-left: 13%; color:red">
+                        <span>{{ $errors->first('error') }}</span></div>
+                @endif
                 <div class="check-box">
                     <input type="checkbox" onclick="togglepass()">Hiển thị mật khẩu
                 </div>

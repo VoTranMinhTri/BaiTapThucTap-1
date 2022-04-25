@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <img src="{{ asset('assets/images/alex.png') }}" class="alex-picture">
-                @if (Session::has('success'))
+                @if (Session::has('thongbao'))
                 <div class="popup-thongbao active">
                     <a onclick="closepopup()" class="close" data-dismiss="alert" aria-label="close"
                         style="top: 10px;color: orange;font-weight: bold;">&times;</a>

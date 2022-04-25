@@ -72,7 +72,7 @@
                         </div>
                     @endif --}}
                 </form>
-                @if ($errors->any())
+                @if ($error != null || $errors->any())
                     <div class="popup-thongbao active">
                         <a onclick="closepopup()" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <div class="bg-thongbao"></div>

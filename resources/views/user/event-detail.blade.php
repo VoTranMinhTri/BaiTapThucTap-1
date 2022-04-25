@@ -7,7 +7,7 @@
         <div class="event-detail-main">
             <div class="event-detail-box-inside">
                 <div class="evd-box-1">
-                    <img class="evd-box-1-edp1" src="{{ asset('assets/images/'.$hinhanhsukien[0]->hinh_anh) }}">
+                    <img class="evd-box-1-edp1" src="{{ asset('assets/images/'.$hinhAnhSuKien[0]->hinh_anh) }}" style="width: 411px;height:337px">
                     <div class="info">
                         <div class="date">
                             <img class="icon-calendar" src="{{ asset('assets/images/icon-calendar.png') }}">
@@ -18,15 +18,15 @@
                     </div>
                 </div>
                 <div class="evd-box-2">
-                    <img class="evd-box-2-edp2" src="{{ asset('assets/images/'.$hinhanhsukien[1]->hinh_anh) }}">
-                    <div class="text event-detail-text">{{ $noidungsukien[1]->noi_dung }}</div>
+                    <img class="evd-box-2-edp2" src="{{ asset('assets/images/'.$hinhAnhSuKien[1]->hinh_anh) }}" style="width: 288px;height:208px">
+                    <div class="text event-detail-text">{{ $noiDungSuKien[1]->noi_dung }}</div>
                 </div>
                 <div class="evd-box-3">
-                    <div class="text event-detail-text">{{ $noidungsukien[2]->noi_dung }}</div>
-                    <img class="evd-box-3-edp3" src="{{ asset('assets/images/'.$hinhanhsukien[2]->hinh_anh) }}">
+                    <div class="text event-detail-text">{{ $noiDungSuKien[2]->noi_dung }}</div>
+                    <img class="evd-box-3-edp3" src="{{ asset('assets/images/'.$hinhAnhSuKien[2]->hinh_anh) }}" style="width: 288px;height:208px">
                 </div>
                 <div class="evd-box-4">
-                    {{ $noidungsukien[0]->noi_dung }}
+                    {{ $noiDungSuKien[0]->noi_dung }}
                 </div>
             </div>
         </div>

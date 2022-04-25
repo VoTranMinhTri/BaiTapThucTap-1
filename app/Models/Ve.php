@@ -9,4 +9,7 @@ class Ve extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    // protected $casts = [
+    //     'ngay_su_dung' => 'datetime:d/m/Y', // Định dạng lại ngày
+    // ];
 }

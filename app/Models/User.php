@@ -16,8 +16,11 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    protected $table = 'tai_khoans';
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'password',
     ];
 
     /**
