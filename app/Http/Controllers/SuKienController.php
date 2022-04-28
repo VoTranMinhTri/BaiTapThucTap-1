@@ -85,7 +85,7 @@ class SuKienController extends Controller
                 ]);
                 $hinhanhsukien->save();
             }
-            return redirect()->back()->with('thongbao', 'Thêm sự kiện thành công');
+            return redirect()->back()->with('thongbao', 'Thêm sự kiện thành công !');
         }
         return redirect()->back()->with('thongbao', 'Thêm sự kiện không thành công ! Kiểm tra lại thông tin');
     }
@@ -192,6 +192,9 @@ class SuKienController extends Controller
      */
     public function destroy(SuKien $suKien)
     {
-        //
+        if($suKien->delete()){
+            return redirect()->back()->with('thongbao', 'Xóa sự kiện thành công');
+        }
+        return redirect()->back()->with('thongbao', 'Xóa sự kiện không thành công');
     }
 }

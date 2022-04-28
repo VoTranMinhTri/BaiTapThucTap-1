@@ -36,7 +36,8 @@
                                 </button>
                             </a>
                             <hr>
-                            <form action="#" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                            <form action="{{ route('loaiTaiKhoan.store') }}" method="post" accept-charset="utf-8">
+                                @csrf
                                 <div class="row" style="margin-left: 34.5%;">
                                     <div class="col-sm-12">
                                         <h4 class="card-title">LOẠI TÀI KHOẢN MỚI</h4>
@@ -46,9 +47,9 @@
                                                     <label for="" class="col-sm-12">Tên loại tài khoản <span
                                                             style="color:red">*</span></label>
                                                     <div class="col-sm-12">
-                                                        <input class="form-control" name="" type="text"
+                                                        <input class="form-control" name="tenloaitaikhoan" type="text"
                                                             style="height: 40px;" id=""
-                                                            placeholder="Tên loại tài khoản" value="">
+                                                            placeholder="Tên loại tài khoản" value="" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -57,10 +58,22 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12" style="text-align: center; margin-top:20px">
-                                        <button type="button" class="btn btn-primary">Thêm loại tài khoản</button>
+                                        <button type="submit" class="btn btn-primary">Thêm loại tài khoản</button>
                                     </div>
                                 </div>
                             </form>
+                            @if (Session::has('thongbao'))
+                                <div class="popup-thongbao active">
+                                    <a onclick="closepopup()" class="close" data-dismiss="alert"
+                                        aria-label="close">&times;</a>
+                                    <div class="bg-thongbao"></div>
+                                    <div class="thongbao">
+                                        <div class="thongbaoketqua">
+                                            <p>{{ Session::get('thongbao') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -93,4 +106,12 @@
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
+    <script>
+        function closepopup() {
+            var popup = document.querySelector('.popup-thongbao');
+            popup.className = popup.className.replace(' active', '');
+            var bo = document.querySelector('body');
+            bo.className = bo.className.replace('hidden-y', '');
+        }
+    </script>
 @endsection

@@ -21,7 +21,7 @@ prev.addEventListener("click", function () {
 
 function changeSlideBox(direction) {
     if (direction === 1) {
-        X = (X - sliderItemBoxWidth - 20)*4;
+        X = (X - sliderItemBoxWidth - 30)*4;
         sliderStageBox.style = 'transform: translate3d(' + X + 'px, 0px, 0px); transition: all 1.25s ease 0s;';
         i++;
         if (i == slidersBoxLength - 4) {
@@ -29,7 +29,7 @@ function changeSlideBox(direction) {
             prev.className = prev.className.replace(" disabled", "");
         }
     } else if (direction === -1) {
-        X = X + (sliderItemBoxWidth + 20)*4;
+        X = X + (sliderItemBoxWidth + 30)*4;
         sliderStageBox.style = 'transform: translate3d(' + X + 'px, 0px, 0px); transition: all 1.25s ease 0s;';
         i--;
         if (i == 0) {

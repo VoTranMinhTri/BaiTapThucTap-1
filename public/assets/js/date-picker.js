@@ -437,34 +437,32 @@ font-family: sans-serif;
 }
 
 .date-toggle {
-width: 100%;
-height: 100%;
-left: 174px;
-top: 72px;
-background: #FFFFFF;
-box-shadow: inset -1px 3px 3px rgb(179 91 11 / 50%);
-border-radius: 16px;
-font-family: 'Montserrat';
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 26px;
-outline: none;
-border: none;
-cursor: pointer;
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    box-shadow: inset -1px 3px 3px rgb(179 91 11 / 50%);
+    border-radius: 16px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2vh;
+    line-height: 2vh;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
 
 .calendar-dropdown {
 display: none;
-width: 300px;
-height: 350px;
+width: 15vw;
+height: 36vh;
 position: absolute;
 top: 100%;
-left: 50%;
+left: 51%;
 transform: translate(-50%, 8px);
-padding: 20px;
+padding: 1vw;
 background: #fff;
-border-radius: 25px;
+border-radius: 2vw;
 box-shadow: 0 0 8px rgba(0,0,0,0.2);
 z-index: 1;
 }
@@ -501,7 +499,7 @@ margin: 10px 0 30px;
 .header h4 {
 margin: 0;
 text-transform: capitalize;
-font-size: 21px;
+font-size: 2vh;
 font-weight: bold;
 }
 
@@ -510,7 +508,6 @@ padding: 0;
 border: 8px solid transparent;
 width: 0;
 height: 0;
-border-radius: 2px;
 border-top-color: #222;
 transform: rotate(90deg);
 cursor: pointer;
@@ -547,8 +544,8 @@ align-items: center;
 font-family: 'Montserrat';
 font-style: normal;
 font-weight: 500;
-font-size: 18px;
-line-height: 26px;
+font-size: 2vh;
+line-height: 2vh;
 text-transform: capitalize;
 color: #ffa538;
 }
@@ -560,8 +557,7 @@ grid-gap: 5px;
 }
 
 .month-day {
-padding: 8px 5px;
- height: 38px;
+height: 4vh;
 background: #fff;
 display: flex;
 justify-content: center;

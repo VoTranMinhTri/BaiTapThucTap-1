@@ -36,7 +36,9 @@
                                 </button>
                             </a>
                             <hr>
-                            <form action="#" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                            <form action="{{ route('loaiVe.update', ['loaiVe' => $loaiVe]) }}"  method="post" accept-charset="utf-8">
+                                @csrf
+                                @method('PATCH')
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <h4 class="card-title">LOẠI VÉ MỚI</h4>
@@ -46,9 +48,9 @@
                                                     <label for="" class="col-sm-12">Tên loại vé <span
                                                             style="color:red">*</span></label>
                                                     <div class="col-sm-12">
-                                                        <input class="form-control" name="" type="text"
+                                                        <input class="form-control" name="tenloaive" type="text"
                                                             style="height: 40px;" id=""
-                                                            placeholder="Tên loại vé" value="">
+                                                            placeholder="Tên loại vé" value="{{ $loaiVe->ten_loai_ve }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -59,7 +61,7 @@
                                                     <div>
                                                         <input class="form-control" name="gia"
                                                             type="number" style="height: 40px; width: 95%; float: left;"
-                                                            placeholder="0" value="">
+                                                            placeholder="0" value="{{ $loaiVe->gia }}" min="0" required>
                                                         <div
                                                             style="background-color: #ebebeb;padding: 8.5px;text-align: center;border-radius: 3px;border: 1px solid #ccc;">
                                                             đ</div>
@@ -71,10 +73,22 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12" style="text-align: center; margin-top:20px">
-                                        <button type="button" class="btn btn-primary">Cập nhật loại vé</button>
+                                        <button type="submit" class="btn btn-primary">Cập nhật loại vé</button>
                                     </div>
                                 </div>
                             </form>
+                            @if (Session::has('thongbao'))
+                                <div class="popup-thongbao active">
+                                    <a onclick="closepopup()" class="close" data-dismiss="alert"
+                                        aria-label="close">&times;</a>
+                                    <div class="bg-thongbao"></div>
+                                    <div class="thongbao">
+                                        <div class="thongbaoketqua">
+                                            <p>{{ Session::get('thongbao') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -107,4 +121,12 @@
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
+    <script>
+        function closepopup() {
+            var popup = document.querySelector('.popup-thongbao');
+            popup.className = popup.className.replace(' active', '');
+            var bo = document.querySelector('body');
+            bo.className = bo.className.replace('hidden-y', '');
+        }
+    </script>
 @endsection

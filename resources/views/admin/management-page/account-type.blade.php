@@ -56,17 +56,18 @@
                                                 <?php $i = 0; ?>
                                                 @foreach ($loaitaikhoan as $tp)
                                                     <tr>
-                                                        <td><?php echo ++$i ?></td>
+                                                        <td><?php echo ++$i; ?></td>
                                                         <td>{{ $tp->ten_loai_tai_khoan }}</td>
                                                         <td>
                                                             {{-- https://jsfiddle.net/prasun_sultania/KSk42/ hướng dẫn chỉnh lại title --}}
-                                                            <a href="/edit-account-type"><button type="button"
-                                                                    class="btn btn-outline-secondary"
+                                                            <a
+                                                                href="{{ route('loaiTaiKhoan.edit', ['loaiTaiKhoan' => $tp]) }}"><button
+                                                                    type="button" class="btn btn-outline-secondary"
                                                                     title="Chỉnh sửa thông tin loại tài khoản"><i
                                                                         class="far fa-edit"></i></button></a>
                                                             <button type="button" class="btn btn-outline-danger"
-                                                                title="Xóa loại tài khoản"><i
-                                                                    class="fas fa-trash"></i></button>
+                                                                onclick="confirm('{{ route('loaiTaiKhoan.destroy', ['loaiTaiKhoan' => $tp]) }}')"
+                                                                title="Xóa loại tài khoản"><i class="fas fa-trash"></i></button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -79,6 +80,38 @@
                                             </tfoot>
                                         </table>
                                     </div>
+                                    <div class="popup">
+                                        <div class="bg-popup"></div>
+                                        <div class="form-popup" style="width: 300px">
+                                            <div class="row-popup">
+                                                <h3>Xóa loại tài khoản</h3>
+                                            </div>
+                                            <form method="post" action="#" id="formdelete">
+                                                @csrf
+                                                @method('DELETE')
+                                                <strong style="display:block">Bạn có muốn xóa loại tài khoản này không
+                                                    ?</strong>
+                                                <p style="margin-top: 10px; text-align: center">
+                                                    <button type="submit" class="btn btn-outline-danger">Có</button>
+                                                    <button type="button"
+                                                        class="btn btn-outline-secondary formclose">Không</button>
+                                                </p>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                    @if (Session::has('thongbao'))
+                                        <div class="popup-thongbao active">
+                                            <a onclick="closepopup()" class="close" data-dismiss="alert"
+                                                aria-label="close">&times;</a>
+                                            <div class="bg-thongbao"></div>
+                                            <div class="thongbao">
+                                                <div class="thongbaoketqua">
+                                                    <p>{{ Session::get('thongbao') }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                         </div>
                     </div>
                 </div>
@@ -111,4 +144,30 @@
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
+    <script>
+        const popup = this.document.querySelector('.popup');
+        const html = this.document.querySelector('html');
+        const btnclose = this.document.querySelector('.formclose');
+
+        //Hiển thị
+        function confirm($url) {
+            popup.className += " active";
+            html.style = "overflow: hidden;";
+            $('#formdelete').attr('action', $url);
+        };
+
+        //Đóng form
+        btnclose.onclick = function() {
+            popup.className = popup.className.replace(" active", "");
+            html.style = "overflow: auto;";
+        };
+
+        //Đóng thông báo kết quả
+        function closepopup() {
+            var popup = document.querySelector('.popup-thongbao');
+            popup.className = popup.className.replace(' active', '');
+            var bo = document.querySelector('body');
+            bo.className = bo.className.replace('hidden-y', '');
+        }
+    </script>
 @endsection

@@ -2,12 +2,13 @@
 @section('content')
 <div class="frame">
     <div class="content-wraper">
+        <img src="{{ asset('assets/images/content-bg.png') }}" width="100%" height="100%">
         <div class="title-text-event-detail">{{ $sukien->ten_su_kien }}</div>
         <img class="hoagiay-1" src="{{ asset('assets/images/hoagiay-1.png') }}">
         <div class="event-detail-main">
             <div class="event-detail-box-inside">
                 <div class="evd-box-1">
-                    <img class="evd-box-1-edp1" src="{{ asset('assets/images/'.$hinhAnhSuKien[0]->hinh_anh) }}" style="width: 411px;height:337px">
+                    <img class="evd-box-1-edp1" src="{{ asset('assets/images/'.$hinhAnhSuKien[0]->hinh_anh) }}">
                     <div class="info">
                         <div class="date">
                             <img class="icon-calendar" src="{{ asset('assets/images/icon-calendar.png') }}">
@@ -18,12 +19,12 @@
                     </div>
                 </div>
                 <div class="evd-box-2">
-                    <img class="evd-box-2-edp2" src="{{ asset('assets/images/'.$hinhAnhSuKien[1]->hinh_anh) }}" style="width: 288px;height:208px">
+                    <img class="evd-box-2-edp2" src="{{ asset('assets/images/'.$hinhAnhSuKien[1]->hinh_anh) }}">
                     <div class="text event-detail-text">{{ $noiDungSuKien[1]->noi_dung }}</div>
                 </div>
                 <div class="evd-box-3">
                     <div class="text event-detail-text">{{ $noiDungSuKien[2]->noi_dung }}</div>
-                    <img class="evd-box-3-edp3" src="{{ asset('assets/images/'.$hinhAnhSuKien[2]->hinh_anh) }}" style="width: 288px;height:208px">
+                    <img class="evd-box-3-edp3" src="{{ asset('assets/images/'.$hinhAnhSuKien[2]->hinh_anh) }}">
                 </div>
                 <div class="evd-box-4">
                     {{ $noiDungSuKien[0]->noi_dung }}
@@ -35,7 +36,7 @@
     <img class="flag-phai" src="{{ asset('assets/images/flag-phai.png') }}">
 </div>
 <div class="navigation">
-    <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}">
+    <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}" style="width: 100vw; height: 15vh;">
     <div class="group2">
         <div class="frame22">
             <div class="phone">
@@ -52,7 +53,7 @@
         </div>
     </div>
     <a href="/">
-        <div class="logo"></div>
+        <img class="logo" src="{{ asset('assets/images/logo.png') }}" style="width: 10%">
     </a>
 </div>
 @endsection

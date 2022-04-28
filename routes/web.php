@@ -7,7 +7,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SuKienController;
 use App\Http\Controllers\TheThanhToanController;
 use App\Http\Controllers\VeController;
+use App\Http\Controllers\LoaiVeController;
 use App\Http\Controllers\TaiKhoanController;
+use App\Http\Controllers\LoaiTaiKhoanController;
 use App\Models\LoaiTaiKhoan;
 use App\Models\SuKien;
 use App\Models\NoiDungSuKien;
@@ -57,12 +59,18 @@ Route::get('/guimaillienhe', function (Request $request) {
     //Quay trở lại trang
     return redirect()->back()->with('thongbao', 'thongbao');
 });
+//Resource
+Route::resource('suKien', SuKienController::class);
+
 
 //Admin
 //Kiểm tra chưa đăng nhập
 Route::middleware('checklogout')->group(function () {
     //Resource
-    Route::resource('suKien', SuKienController::class);
+    Route::resource('loaiVe', LoaiVeController::class);
+    Route::resource('loaiTaiKhoan', LoaiTaiKhoanController::class);
+    Route::resource('taiKhoan', TaiKhoanController::class);
+
 
     //Bảng điều khiển
     Route::get('/dashboard', function () {
@@ -97,26 +105,6 @@ Route::middleware('checklogout')->group(function () {
         return view('admin/management-page/ticket-type', ['loaive' => $loaive]);
     });
 
-    //Quản lý tài khoản
-    Route::get('/accountadmin', function () {
-        $taikhoan = TaiKhoan::join('loai_tai_khoans', 'loai_tai_khoans.id', '=', 'tai_khoans.loai_tai_khoan_id')
-            ->select('tai_khoans.username', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.ho_ten', 'tai_khoans.ngay_sinh', 'tai_khoans.dia_chi', 'tai_khoans.sdt')
-            ->get();
-
-        //Định dạng lại ngày
-        foreach ($taikhoan as $tp) {
-            $tp->ngay_sinh = Carbon::createFromFormat('Y-m-d', $tp->ngay_sinh)->format('d/m/Y');
-        }
-        return view('admin/management-page/account', ['taikhoan' => $taikhoan]);
-    });
-
-    //Quản lý loại tài khoản
-    Route::get('/accounttypeadmin', function () {
-        $loaitaikhoan = LoaiTaiKhoan::all();
-
-        return view('admin/management-page/account-type', ['loaitaikhoan' => $loaitaikhoan]);
-    });
-
     //Thêm
     Route::get('/add-event', function () {
         return view('admin/add-page/add-event');
@@ -124,12 +112,7 @@ Route::middleware('checklogout')->group(function () {
     Route::get('/add-ticket-type', function () {
         return view('admin/add-page/add-ticket-type');
     });
-    Route::get('/add-account-type', function () {
-        return view('admin/add-page/add-account-type');
-    });
-    Route::get('/add-account', function () {
-        return view('admin/add-page/add-account');
-    });
+
 
     //Cập nhật
     Route::get('/edit-event', function () {
@@ -138,12 +121,49 @@ Route::middleware('checklogout')->group(function () {
     Route::get('/edit-ticket-type', function () {
         return view('admin/edit-page/edit-ticket-type');
     });
-    Route::get('/edit-account-type', function () {
-        return view('admin/edit-page/edit-account-type');
-    });
     Route::get('/edit-account', function () {
         return view('admin/edit-page/edit-account');
     });
+
+    //Kiểm tra quyền
+    Route::middleware('checkpermission')->group(function () {
+        //Quản lý tài khoản
+        Route::get('/accountadmin', function () {
+            $taikhoan = TaiKhoan::join('loai_tai_khoans', 'loai_tai_khoans.id', '=', 'tai_khoans.loai_tai_khoan_id')
+                ->select('tai_khoans.username', 'loai_tai_khoans.ten_loai_tai_khoan', 'tai_khoans.ho_ten', 'tai_khoans.ngay_sinh', 'tai_khoans.dia_chi', 'tai_khoans.sdt')
+                ->get();
+
+            //Định dạng lại ngày
+            foreach ($taikhoan as $tp) {
+                $tp->ngay_sinh = Carbon::createFromFormat('Y-m-d', $tp->ngay_sinh)->format('d/m/Y');
+            }
+            return view('admin/management-page/account', ['taikhoan' => $taikhoan]);
+        });
+
+        //Quản lý loại tài khoản
+        Route::get('/accounttypeadmin', function () {
+            $loaitaikhoan = LoaiTaiKhoan::all();
+
+            return view('admin/management-page/account-type', ['loaitaikhoan' => $loaitaikhoan]);
+        });
+
+        //Thêm
+        Route::get('/add-account-type', function () {
+            return view('admin/add-page/add-account-type');
+        });
+
+        //Sửa
+        Route::get('/edit-account-type', function () {
+            return view('admin/edit-page/edit-account-type');
+        });
+    });
+
+    //Đổi mật khẩu
+    Route::get('/change-pass', function () {
+        return view('admin/management-page/change-pass');
+    });
+    Route::post('/change-pass', [TaiKhoanController::class, 'changepassword']);
+
 });
 
 //Kiểm tra đã đăng nhập

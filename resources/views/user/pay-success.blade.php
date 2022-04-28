@@ -2,6 +2,7 @@
 @section('content')
     <div class="frame">
         <div class="content-wraper">
+            <img src="{{ asset('assets/images/content-bg.png') }}" width="100%" height="100%">
             <div class="khungchuave">
                 <div class="list-ve">
                     <div class="owl-stage-outer" data-box-id='boxscroll'>
@@ -21,8 +22,8 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" role="presentation" class="previous-btn disabled"></button>
-                <button type="button" role="presentation" class="next-btn"></button>
+                <button type="button" role="presentation" class="previous-btn disabled" style="top:40%;left:3%"></button>
+                <button type="button" role="presentation" class="next-btn" style="top:40%;right:3%"></button>
                 <div class="text-soluongve">Số lượng: <?php echo count($dsve) ?></div>
                 <div class="text-trang">Trang 1/
                 <?php
@@ -41,7 +42,7 @@
         <img src="{{ asset('assets/images/thanhtoanthanhcong-text.png') }}" class="thanhtoanthanhcong-text">
     </div>
     <div class="navigation">
-        <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}">
+        <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}" style="width: 100vw; height: 15vh;">
         <div class="group2">
             <div class="frame22">
                 <div class="phone">
@@ -53,12 +54,12 @@
             </div>
             <div class="frame20">
                 <div class="item"><a href="/">Trang chủ</a></div>
-                <div class="item"><a href="/event">Sự kiện</a></div>
+                <div class="item"><a href="/event" >Sự kiện</a></div>
                 <div class="item"><a href="/contact">Liên hệ</a></div>
             </div>
         </div>
         <a href="/">
-            <div class="logo"></div>
+            <img class="logo" src="{{ asset('assets/images/logo.png') }}" style="width: 10%">
         </a>
     </div>
     <script src="{{ asset('assets/js/pay-success.js') }}"></script>

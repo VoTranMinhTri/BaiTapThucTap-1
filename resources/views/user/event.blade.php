@@ -2,7 +2,8 @@
 @section('content')
 <div class="frame">
     <div class="content-wraper">
-        <img class="sukiennoibat-text" src="{{ asset('assets/images/sukiennoibat-text.png') }}">
+        <img src="{{ asset('assets/images/content-bg.png') }}" width="100%" height="100%">
+         <img class="sukiennoibat-text" src="{{ asset('assets/images/sukiennoibat-text.png') }}">
         <img class="hoagiay-1" src="{{ asset('assets/images/hoagiay-1.png') }}">
         <div class="list-news">
             <div class="owl-stage-outer" data-box-id='boxscroll'>
@@ -25,6 +26,7 @@
                             <a href="{{ route('suKien.show', ['suKien'=> $tp]) }}" class="btn-xemchitiet"></a>
                         </div>
                     </div>
+
                     @endforeach
                 </div>
             </div>
@@ -37,7 +39,7 @@
     <img class="flag-phai" src="{{ asset('assets/images/flag-phai.png') }}">
 </div>
 <div class="navigation">
-    <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}">
+    <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}" style="width: 100vw; height: 15vh;">
     <div class="group2">
         <div class="frame22">
             <div class="phone">
@@ -54,7 +56,7 @@
         </div>
     </div>
     <a href="/">
-        <div class="logo"></div>
+        <img class="logo" src="{{ asset('assets/images/logo.png') }}" style="width: 10%">
     </a>
 </div>
 <script src="{{ asset('assets/js/event.js') }}"></script>

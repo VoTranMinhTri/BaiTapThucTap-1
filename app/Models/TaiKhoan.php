@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notifiable;
 class TaiKhoan extends Authenticatable
 {
     use HasFactory, Notifiable;
+    protected $guarded = [];
+
     protected $table = 'tai_khoans';
      /**
      * The attributes that are mass assignable.

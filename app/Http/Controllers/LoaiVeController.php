@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LoaiVe;
-use App\Http\Requests\StoreLoaiVeRequest;
-use App\Http\Requests\UpdateLoaiVeRequest;
+use Illuminate\Http\Request;
 
 class LoaiVeController extends Controller
 {
@@ -34,9 +33,17 @@ class LoaiVeController extends Controller
      * @param  \App\Http\Requests\StoreLoaiVeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreLoaiVeRequest $request)
+    public function store(Request $request)
     {
-        //
+        $loaiVe = new LoaiVe;
+        $loaiVe->fill([
+            'ten_loai_ve' => $request->input('tenloaive'),
+            'gia' => $request->input('gia'),
+        ]);
+        if ($loaiVe->save() == true){
+            return redirect()->back()->with('thongbao', 'Thêm loại vé thành công !');
+        }
+        return redirect()->back()->with('thongbao', 'Thêm loại vé không thành công !');
     }
 
     /**
@@ -58,7 +65,7 @@ class LoaiVeController extends Controller
      */
     public function edit(LoaiVe $loaiVe)
     {
-        //
+        return view('admin/edit-page/edit-ticket-type', ['loaiVe' => $loaiVe]);
     }
 
     /**
@@ -68,9 +75,16 @@ class LoaiVeController extends Controller
      * @param  \App\Models\LoaiVe  $loaiVe
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLoaiVeRequest $request, LoaiVe $loaiVe)
+    public function update(Request $request, LoaiVe $loaiVe)
     {
-        //
+        $loaiVe->fill([
+            'ten_loai_ve' => $request->input('tenloaive'),
+            'gia' => $request->input('gia'),
+        ]);
+        if ($loaiVe->save() == true){
+            return redirect()->back()->with('thongbao', 'Cập nhật loại vé thành công !');
+        }
+        return redirect()->back()->with('thongbao', 'Cập nhật loại vé không thành công !');
     }
 
     /**
@@ -81,6 +95,9 @@ class LoaiVeController extends Controller
      */
     public function destroy(LoaiVe $loaiVe)
     {
-        //
+        if($loaiVe->delete()){
+            return redirect()->back()->with('thongbao', 'Xóa loại vé thành công');
+        }
+        return redirect()->back()->with('thongbao', 'Xóa loại vé không thành công');
     }
 }

@@ -39,7 +39,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="/add-account"><button type="button" class="btn btn-outline-primary">
+                            <a href="{{ route('taiKhoan.create') }}"><button type="button"
+                                    class="btn btn-outline-primary">
                                     <i class="fas fa-plus-circle"></i> THÊM TÀI KHOẢN
                                 </button><a>
                                     <hr>
@@ -60,25 +61,22 @@
                                             <tbody>
                                                 <?php $i = 0; ?>
                                                 @foreach ($taikhoan as $tp)
-                                                    <tr>
-                                                        <td><?php echo ++$i ?></td>
-                                                        <td>{{ $tp->username }}</td>
-                                                        <td>{{ $tp->ten_loai_tai_khoan }}</td>
-                                                        <td>{{ $tp->ho_ten }}</td>
-                                                        <td>{{ $tp->ngay_sinh }}</td>
-                                                        <td>{{ $tp->dia_chi }}</td>
-                                                        <td>{{ $tp->sdt }}</td>
-                                                        <td>
-                                                            {{-- https://jsfiddle.net/prasun_sultania/KSk42/ hướng dẫn chỉnh lại title --}}
-                                                            <a href="/edit-account"><button type="button"
-                                                                    class="btn btn-outline-secondary"
-                                                                    title="Chỉnh sửa thông tin tài khoản"><i
-                                                                        class="far fa-edit"></i></button></a>
-                                                            <button type="button" class="btn btn-outline-danger"
-                                                                title="Xóa tài khoản"><i
-                                                                    class="fas fa-trash"></i></button>
-                                                        </td>
-                                                    </tr>
+                                                    @if ($tp->username != Auth::user()->username)
+                                                        <tr>
+                                                            <td><?php echo ++$i; ?></td>
+                                                            <td>{{ $tp->username }}</td>
+                                                            <td>{{ $tp->ten_loai_tai_khoan }}</td>
+                                                            <td>{{ $tp->ho_ten }}</td>
+                                                            <td>{{ $tp->ngay_sinh }}</td>
+                                                            <td>{{ $tp->dia_chi }}</td>
+                                                            <td>{{ $tp->sdt }}</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-outline-danger"
+                                                                    title="Xóa tài khoản"><i
+                                                                        class="fas fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                             </tbody>
                                             <tfoot>

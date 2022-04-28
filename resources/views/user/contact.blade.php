@@ -2,6 +2,7 @@
 @section('content')
     <div class="frame">
         <div class="content-wraper">
+            <img src="{{ asset('assets/images/content-bg.png') }}" width="100%" height="100%">
             <div class="main-contact">
                 <div class="khung-lienhe-1">
                     <div class="text-contact">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac
@@ -61,7 +62,7 @@
         <img src="{{ asset('assets/images/lienhe-text.png') }}" class="lienhe-text">
     </div>
     <div class="navigation">
-        <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}">
+        <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}" style="width: 100vw; height: 15vh;">
         <div class="group2">
             <div class="frame22">
                 <div class="phone">
@@ -73,12 +74,12 @@
             </div>
             <div class="frame20">
                 <div class="item"><a href="/">Trang chủ</a></div>
-                <div class="item"><a href="/event">Sự kiện</a></div>
+                <div class="item"><a href="/event" >Sự kiện</a></div>
                 <div class="item active"><a href="/contact" style="color: #FFFFFF">Liên hệ</a></div>
             </div>
         </div>
         <a href="/">
-            <div class="logo"></div>
+            <img class="logo" src="{{ asset('assets/images/logo.png') }}" style="width: 10%">
         </a>
     </div>
     <script>

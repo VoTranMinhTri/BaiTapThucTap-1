@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" type="text/css">
 </head>
 
-<body class="home bg">
+<body class="bg">
     <div class="main">
         @yield('content')
     </div>

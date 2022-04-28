@@ -26,7 +26,8 @@
 <![endif]-->
 </head>
 
-<body>
+<body class="{{ session('thongbao') ? 'hidden-y' : null }}">
+    {{-- <?php $user = Auth::user(); ?> --}}
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -65,7 +66,7 @@
                         <span class="logo-text">
                             <!-- dark Logo text -->
                             <img src="{{ asset('assets/admin/images/damsen-text-1.png') }}" alt="homepage"
-                                class="light-logo" style="width: 100px"/>
+                                class="light-logo" style="width: 100px" />
                         </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->
@@ -103,30 +104,6 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-end">
                         <!-- ============================================================== -->
-                        <!-- Comment -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="mdi mdi-bell font-24"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- End Comment -->
-                        <!-- ============================================================== -->
-                        <!-- ============================================================== -->
-                        <!-- Messages -->
-                        <!-- ============================================================== -->
-
-                        <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
@@ -137,21 +114,16 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated"
                                 aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user me-1 ms-1"></i>
+                                <a class="dropdown-item"
+                                    href="{{ route('taiKhoan.edit', ['taiKhoan' => Auth::user()]) }}"><i
+                                        class="ti-user me-1 ms-1"></i>
                                     Thông tin của tôi</a>
-                                {{-- <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet me-1 ms-1"></i>
-                                    My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email me-1 ms-1"></i>
-                                    Inbox</a> --}}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i
-                                        class="ti-settings me-1 ms-1"></i> Cài đặt tài khoản</a>
+                                <a class="dropdown-item" href="/change-pass"><i
+                                        class="ti-settings me-1 ms-1"></i> Đổi mật khẩu</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/logout"><i class="fa fa-power-off me-1 ms-1"></i> Đăng
                                     xuất</a>
-                                <div class="dropdown-divider"></div>
-                                <div class="ps-4 p-10"><a href="javascript:void(0)"
-                                        class="btn btn-sm btn-success btn-rounded text-white">Xem hồ sơ</a></div>
                             </ul>
                         </li>
                         <!-- ============================================================== -->
@@ -178,11 +150,13 @@
                                 <span style="color:white;" class="hide-menu">QUẢN LÝ</span>
                             </div>
                         </div>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/dashboard"
-                                aria-expanded="false"><i class="me-2 mdi mdi-view-dashboard"></i><span class="hide-menu">Bảng
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="/dashboard" aria-expanded="false"><i class="me-2 mdi mdi-view-dashboard"></i><span
+                                    class="hide-menu">Bảng
                                     điều khiển</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/eventadmin"
-                                aria-expanded="false"><i class="me-2 mdi mdi-star-circle"></i><span class="hide-menu">Sự kiện</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="/eventadmin" aria-expanded="false"><i class="me-2 mdi mdi-star-circle"></i><span
+                                    class="hide-menu">Sự kiện</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="#"
                                 aria-expanded="false"><i class="me-2 mdi mdi-ticket"></i><span
                                     class="hide-menu">Vé</span></a>
@@ -197,20 +171,22 @@
                                         </span></a></li>
                             </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="#"
-                            aria-expanded="false"><i class="me-2 mdi mdi-account-outline"></i><span
-                                class="hide-menu">Tài khoản</span></a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item"><a href="/accountadmin" class="sidebar-link"><i
-                                        class="me-2 mdi mdi-record"></i><span class="hide-menu">Quản lý
-                                        tài khoản
-                                    </span></a></li>
-                            <li class="sidebar-item"><a href="/accounttypeadmin" class="sidebar-link"><i
-                                        class="me-2 mdi mdi-record"></i><span class="hide-menu">Quản lý
-                                        loại tài khoản
-                                    </span></a></li>
-                        </ul>
-                    </li>
+                        @if (Auth::user()->loai_tai_khoan_id == 1)
+                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                    href="#" aria-expanded="false"><i class="me-2 mdi mdi-account-outline"></i><span
+                                        class="hide-menu">Tài khoản</span></a>
+                                <ul aria-expanded="false" class="collapse  first-level">
+                                    <li class="sidebar-item"><a href="/accountadmin" class="sidebar-link"><i
+                                                class="me-2 mdi mdi-record"></i><span class="hide-menu">Quản lý
+                                                tài khoản
+                                            </span></a></li>
+                                    <li class="sidebar-item"><a href="/accounttypeadmin" class="sidebar-link"><i
+                                                class="me-2 mdi mdi-record"></i><span class="hide-menu">Quản lý
+                                                loại tài khoản
+                                            </span></a></li>
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -276,4 +252,3 @@
 </body>
 
 </html>
-

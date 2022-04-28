@@ -333,6 +333,8 @@
         function closepopup() {
             var popup = document.querySelector('.popup-thongbao');
             popup.className = popup.className.replace(' active', '');
+            var bo = document.querySelector('body');
+            bo.className = bo.className.replace('hidden-y', '');
         }
     </script>
 @endsection

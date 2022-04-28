@@ -58,23 +58,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $i=0 ?>
+                                                <?php $i = 0; ?>
                                                 @foreach ($sukien as $tp)
                                                     <tr>
-                                                        <td><?php echo ++$i ?></td>
+                                                        <td><?php echo ++$i; ?></td>
                                                         <td>{{ $tp->ten_su_kien }}</td>
                                                         <td>{{ $tp->dia_diem }}</td>
-                                                        <td><img src="{{ asset('storage/images/'.$tp->hinh_anh) }}" style="width: 70%; height:160px"
-                                                                class="no-text"></td>
+                                                        <td><img src="{{ asset('storage/images/' . $tp->hinh_anh) }}"
+                                                                style="width: 250px; height:160px" class="no-text">
+                                                        </td>
                                                         <td>{{ $tp->ngay_bat_dau }}</td>
                                                         <td>{{ $tp->ngay_ket_thuc }}</td>
-                                                        <td>{{ number_format($tp->gia,0) }} VNĐ</td>
+                                                        <td>{{ number_format($tp->gia, 0) }} VNĐ</td>
                                                         <td>
-                                                            <a href="{{ route('suKien.edit', ['suKien'=> $tp]) }}"><button type="button"
-                                                                    class="btn btn-outline-secondary"
+                                                            <a href="{{ route('suKien.edit', ['suKien' => $tp]) }}"><button
+                                                                    type="button" class="btn btn-outline-secondary"
                                                                     title="Chỉnh sửa thông tin sự kiện"><i
                                                                         class="far fa-edit"></i></button></a>
                                                             <button type="button" class="btn btn-outline-danger"
+                                                                onclick="confirm('{{ route('suKien.destroy', ['suKien' => $tp]) }}')"
                                                                 title="Xóa sự kiện"><i class="fas fa-trash"></i></button>
                                                         </td>
                                                     </tr>
@@ -93,7 +95,37 @@
                                             </tfoot>
                                         </table>
                                     </div>
+                                    <div class="popup">
+                                        <div class="bg-popup"></div>
+                                        <div class="form-popup" style="width: 300px">
+                                            <div class="row-popup">
+                                                <h3>Xóa sự kiện</h3>
+                                            </div>
+                                            <form method="post" action="#" id="formdelete">
+                                                @csrf
+                                                @method('DELETE')
+                                                <strong style="display:block">Bạn có muốn xóa sự kiện này không ?</strong>
+                                                <p style="margin-top: 10px; text-align: center">
+                                                    <button type="submit" class="btn btn-outline-danger">Có</button>
+                                                    <button type="button"
+                                                        class="btn btn-outline-secondary formclose">Không</button>
+                                                </p>
 
+                                            </form>
+                                        </div>
+                                    </div>
+                                    @if (Session::has('thongbao'))
+                                        <div class="popup-thongbao active">
+                                            <a onclick="closepopup()" class="close" data-dismiss="alert"
+                                                aria-label="close">&times;</a>
+                                            <div class="bg-thongbao"></div>
+                                            <div class="thongbao">
+                                                <div class="thongbaoketqua">
+                                                    <p>{{ Session::get('thongbao') }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                         </div>
                     </div>
                 </div>
@@ -126,4 +158,30 @@
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
+    <script>
+        const popup = this.document.querySelector('.popup');
+        const html = this.document.querySelector('html');
+        const btnclose = this.document.querySelector('.formclose');
+
+        //Hiển thị
+        function confirm($url) {
+            popup.className += " active";
+            html.style = "overflow: hidden;";
+            $('#formdelete').attr('action', $url);
+        };
+
+        //Đóng form
+        btnclose.onclick = function() {
+            popup.className = popup.className.replace(" active", "");
+            html.style = "overflow: auto;";
+        };
+
+        //Đóng thông báo kết quả
+        function closepopup() {
+            var popup = document.querySelector('.popup-thongbao');
+            popup.className = popup.className.replace(' active', '');
+            var bo = document.querySelector('body');
+            bo.className = bo.className.replace('hidden-y', '');
+        }
+    </script>
 @endsection

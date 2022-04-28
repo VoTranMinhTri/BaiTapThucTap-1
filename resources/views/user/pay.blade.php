@@ -2,6 +2,7 @@
 @section('content')
     <div class="frame">
         <div class="content-wraper">
+            <img src="{{ asset('assets/images/content-bg.png') }}" width="100%" height="100%">
             <div class="group-content-pay">
                 <form action="/thanhtoan" method="post">
                     @csrf
@@ -50,7 +51,7 @@
                                 <div class="title-box">Ngày hết hạn</div>
                                 <date-picker format="DD/MM/YYYY" class="input-ngayhethan"></date-picker>
                                 <input type='text' style='display:none' id='input-date' name="ngayhethan">
-                                <button type="button" class="btn-date" style="top: 37px;left: 350px;"></button>
+                                <button type="button" class="btn-date" style="top: 43%"></button>
                             </div>
                             <div class="box-cvc">
                                 <div class="title-box">CVV/CVC</div>
@@ -60,17 +61,6 @@
                         <button type="submit" class="btn-thanhtoan"></button>
                     </div>
                     <div class="khung-2-to"></div>
-
-                    {{-- Thông báo lỗi --}}
-                    {{-- @if ($errors->any())
-                        <div class="alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif --}}
                 </form>
                 @if ($error != null || $errors->any())
                     <div class="popup-thongbao active">
@@ -89,7 +79,7 @@
         <img src="{{ asset('assets/images/thanhtoan-text.png') }}" class="thanhtoan-text">
     </div>
     <div class="navigation">
-        <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}">
+        <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}" style="width: 100vw; height: 15vh;">
         <div class="group2">
             <div class="frame22">
                 <div class="phone">
@@ -101,12 +91,12 @@
             </div>
             <div class="frame20">
                 <div class="item"><a href="/">Trang chủ</a></div>
-                <div class="item"><a href="/event">Sự kiện</a></div>
+                <div class="item"><a href="/event" >Sự kiện</a></div>
                 <div class="item"><a href="/contact">Liên hệ</a></div>
             </div>
         </div>
         <a href="/">
-            <div class="logo"></div>
+            <img class="logo" src="{{ asset('assets/images/logo.png') }}" style="width: 10%">
         </a>
     </div>
     <script>

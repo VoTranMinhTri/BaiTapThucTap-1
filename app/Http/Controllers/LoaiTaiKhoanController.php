@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LoaiTaiKhoan;
-use App\Http\Requests\StoreLoaiTaiKhoanRequest;
-use App\Http\Requests\UpdateLoaiTaiKhoanRequest;
+use Illuminate\Http\Request;
 
 class LoaiTaiKhoanController extends Controller
 {
@@ -34,9 +33,16 @@ class LoaiTaiKhoanController extends Controller
      * @param  \App\Http\Requests\StoreLoaiTaiKhoanRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreLoaiTaiKhoanRequest $request)
+    public function store(Request $request)
     {
-        //
+        $loaiTaiKhoan = new LoaiTaiKhoan;
+        $loaiTaiKhoan->fill([
+            'ten_loai_tai_khoan' => $request->input('tenloaitaikhoan'),
+        ]);
+        if ($loaiTaiKhoan->save() == true){
+            return redirect()->back()->with('thongbao', 'Thêm loại tài khoản thành công !');
+        }
+        return redirect()->back()->with('thongbao', 'Thêm loại tài khoản không thành công !');
     }
 
     /**
@@ -58,7 +64,7 @@ class LoaiTaiKhoanController extends Controller
      */
     public function edit(LoaiTaiKhoan $loaiTaiKhoan)
     {
-        //
+        return view('admin/edit-page/edit-account-type', ['loaiTaiKhoan' => $loaiTaiKhoan]);
     }
 
     /**
@@ -68,9 +74,15 @@ class LoaiTaiKhoanController extends Controller
      * @param  \App\Models\LoaiTaiKhoan  $loaiTaiKhoan
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLoaiTaiKhoanRequest $request, LoaiTaiKhoan $loaiTaiKhoan)
+    public function update(Request $request, LoaiTaiKhoan $loaiTaiKhoan)
     {
-        //
+        $loaiTaiKhoan->fill([
+            'ten_loai_tai_khoan' => $request->input('tenloaitaikhoan'),
+        ]);
+        if ($loaiTaiKhoan->save() == true){
+            return redirect()->back()->with('thongbao', 'Cập nhật loại tài khoản thành công !');
+        }
+        return redirect()->back()->with('thongbao', 'Cập nhật loại tài khoản không thành công !');
     }
 
     /**
@@ -81,6 +93,9 @@ class LoaiTaiKhoanController extends Controller
      */
     public function destroy(LoaiTaiKhoan $loaiTaiKhoan)
     {
-        //
+        if($loaiTaiKhoan->delete()){
+            return redirect()->back()->with('thongbao', 'Xóa loại tài khoản thành công');
+        }
+        return redirect()->back()->with('thongbao', 'Xóa loại tài khoản không thành công');
     }
 }
