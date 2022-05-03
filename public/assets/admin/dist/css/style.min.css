@@ -11779,8 +11779,8 @@ label {
     text-overflow: ellipsis;
 }
 
-.table td p{
-    width:300px;
+.table td p {
+    width: 300px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -12006,7 +12006,7 @@ select.form-select.form-control-line {
 }
 
 #navbarSupportedContent {
-    background: #fb5d00!important
+    background: #fb5d00 !important
 }
 
 .search-box .app-search {
@@ -15137,64 +15137,65 @@ label {
     flex: unset;
 }
 
-.popup.active{
-display: block;
+.popup.active {
+    display: block;
 }
 
-.popup{
-display: none;
+.popup {
+    display: none;
 }
 
-.bg-popup{
-position: fixed;
-top: 0;
-bottom: 0;
-left: 0;
-right: 0;
-background-color: #333;
-opacity: .8;
-z-index: 999
+.bg-popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    opacity: .8;
+    z-index: 999
 }
 
-.row-popup{
-display: block;
-overflow: hidden;
-padding: 10px 0;
+.row-popup {
+    display: block;
+    overflow: hidden;
+    padding: 10px 0;
 }
 
-.form-popup{
-position: fixed;
-background: #fff;
-border-radius: 4px;
-padding: 10px 20px 20px;
-width: 50%;
-max-width: 500px;
-top: 50%;
-left: 50%;
-transform: translate(-50%,-50%);
-z-index: 9999;
+.form-popup {
+    position: fixed;
+    background: #fff;
+    border-radius: 4px;
+    padding: 10px 20px 20px;
+    width: 50%;
+    max-width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
 }
 
 .form-popup .row-popup button {
-float: right;
-border: 1px solid #ccc;
-border-radius: 4px;
-padding: 10px 10px 10px 24px;
-color: #288ad6;
-position: relative;
-cursor: pointer;
+    float: right;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px 10px 10px 24px;
+    color: #288ad6;
+    position: relative;
+    cursor: pointer;
 }
 
-.form-popup .row-popup strong{
-display: inline-block;
-vertical-align: middle;
-color: #333;
-padding: 10px 0;
-width: 70%;
-font-weight: bold;
+.form-popup .row-popup strong {
+    display: inline-block;
+    vertical-align: middle;
+    color: #333;
+    padding: 10px 0;
+    width: 70%;
+    font-weight: bold;
 }
 
-.form-popup .row-popup button:after, .form-popup .row-popup button:before {
+.form-popup .row-popup button:after,
+.form-popup .row-popup button:before {
     content: "";
     width: 2px;
     height: 12px;
@@ -15214,178 +15215,173 @@ font-weight: bold;
 
 
 /* Custom */
-*{
-font-family: 'Montserrat';
-font-style: normal;
+* {
+    font-family: 'Montserrat';
+    font-style: normal;
 }
 
-.event-detail-main{
-position: relative;
-width: 100%;
+.event-detail-main {
+    position: relative;
+    width: 100%;
 }
 
-.bg-event-detail{
-position: relative;
-width: 100%;
+.bg-event-detail {
+    position: relative;
+    width: 100%;
 }
 
-.evd-box-1{
-position: absolute;
-top:10%;
-left:3%;
-width: 30%;
+.evd-box-1 {
+    position: absolute;
+    top: 10%;
+    left: 3%;
+    width: 30%;
 }
 
-.evd-box-2{
-position: absolute;
-top:10%;
-left:55%;
-width: 20%;
+.evd-box-2 {
+    position: absolute;
+    top: 10%;
+    left: 55%;
+    width: 20%;
 }
 
-.evd-box-3{
-position: absolute;
-top:10%;
-left:76%;
-width: 20%;
+.evd-box-3 {
+    position: absolute;
+    top: 10%;
+    left: 76%;
+    width: 20%;
 }
 
-.evd-box-4{
-position: absolute;
-top: 10%;
-left: 33%;
-width: 20%;
+.evd-box-4 {
+    position: absolute;
+    top: 10%;
+    left: 33%;
+    width: 20%;
 }
 
-.evd-box-1 .info{
-position: relative;
-left: 5%
+.evd-box-1 .info {
+    position: relative;
+    left: 5%
 }
 
-.icon-calendar{
-width: 24px;
-height: 24px;
+.icon-calendar {
+    width: 24px;
+    height: 24px;
 }
 
-.evd-box-1 .info .date{
-display: flex;
-margin-bottom: 10px;
+.evd-box-1 .info .date {
+    display: flex;
+    margin-bottom: 10px;
 }
 
-.text-date{
-font-family: 'Montserrat';
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 16px;
-color: #444444;
-margin: 3px 0 0 3px;
+.text-date {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 16px;
+    color: #444444;
+    margin: 3px 0 0 3px;
 }
 
-.title-event-secondary{
-font-family: 'Montserrat';
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 26px;
-color: #6C7272;
+.title-event-secondary {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    color: #6C7272;
 }
 
-.price-event{
-position: relative;
-font-family: 'Montserrat';
-font-style: normal;
-font-weight: 700;
-font-size: 32px;
-line-height: 48px;
-display: flex;
-align-items: center;
-letter-spacing: 0.005em;
-color: #FA7D09;
+.price-event {
+    position: relative;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 48px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.005em;
+    color: #FA7D09;
 }
 
-.event-detail-text{
-font-family: 'Montserrat';
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 26px;
-display: flex;
-align-items: center;
-text-align: justify;
-color: #000000;
+.event-detail-text {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    color: #000000;
 }
 
-.event-detail-text textarea{
-width: 100%;
-height: 222px;
-background: transparent;
+.event-detail-text textarea {
+    width: 100%;
+    height: 222px;
+    background: transparent;
 }
 
-.thongbao{
-position: absolute;
-z-index: 9999;
+.thongbao {
+    position: absolute;
+    z-index: 9999;
 }
 
-.bg-thongbao{
-position: fixed;
-top: 0;
-bottom: 0;
-left: 0;
-right: 0;
-background-color: #333;
-opacity: .8;
-z-index: 999;
+.bg-thongbao {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    opacity: .8;
+    z-index: 999;
 }
 
-.popup-thongbao.active{
-display: block;
-position: absolute;
-left: 25%;
-top: 100px;
+.popup-thongbao.active {
+    display: block;
+    position: absolute;
+    left: 25%;
+    top: 100px;
 }
 
-.popup-thongbao{
-display: none;
+.popup-thongbao {
+    display: none;
 }
 
-.close{
-position: relative;
-top: 40px;
-left: 370px;
-z-index: 10000;
-font-size: 30px;
-font-weight: bold;
-color: orange;
-cursor: pointer;
+.close {
+    position: relative;
+    top: 40px;
+    left: 370px;
+    z-index: 10000;
+    font-size: 30px;
+    font-weight: bold;
+    color: orange;
+    cursor: pointer;
 }
 
-.thongbaoketqua{
-position: relative;
-width: 400px;
-height: 100px;
-background: #FFFFFF;
-border-radius: 20px;
+.thongbaoketqua {
+    position: relative;
+    width: 400px;
+    height: 100px;
+    background: #FFFFFF;
+    border-radius: 20px;
 }
 
-.thongbaoketqua p{
-position: absolute;
-left: 15%;
-right: 15%;
-top: 20%;
-bottom: 20%;
-text-align: center;
-font-family: 'Montserrat';
-font-style: normal;
-font-weight: 500;
-font-size: 20px;
-line-height: 30px;
-color: #23221F;
-opacity: 0.7;
+.thongbaoketqua p {
+    position: relative;
+    top: 30%;
+    text-align: center;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    color: #23221F;
+    opacity: 0.7;
 }
 
-.hidden-y{
-overflow-y: hidden;
+.hidden-y {
+    overflow-y: hidden;
 }
-
-

@@ -17,7 +17,6 @@ class TaiKhoanController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -28,7 +27,7 @@ class TaiKhoanController extends Controller
     public function create()
     {
         $loaiTaiKhoan = LoaiTaiKhoan::all();
-        return view('admin/add-page/add-account',['loaiTaiKhoan' => $loaiTaiKhoan]);
+        return view('admin/add-page/add-account', ['loaiTaiKhoan' => $loaiTaiKhoan]);
     }
 
     /**
@@ -67,20 +66,24 @@ class TaiKhoanController extends Controller
             ]
         )->validate();
 
-        $taiKhoan = new TaiKhoan;
-        $taiKhoan->fill([
-            'username' => $request->input('username'),
-            'password' => bcrypt($request->input('password')),
-            'loai_tai_khoan_id' => $request->input('loaitaikhoan'),
-            'ho_ten' => $request->input('hoten'),
-            'ngay_sinh' => $request->input('ngaysinh'),
-            'dia_chi' => $request->input('diachi'),
-            'sdt' => $request->input('sdt'),
-        ]);
-        if ($taiKhoan->save() == true){
-            return redirect()->back()->with('thongbao', 'Thêm tài khoản thành công !');
+        $kttontai = TaiKhoan::Where('username', '=', $request->input('username'))->first();
+        if (empty($kttontai)) {
+            $taiKhoan = new TaiKhoan;
+            $taiKhoan->fill([
+                'username' => $request->input('username'),
+                'password' => bcrypt($request->input('password')),
+                'loai_tai_khoan_id' => $request->input('loaitaikhoan'),
+                'ho_ten' => $request->input('hoten'),
+                'ngay_sinh' => $request->input('ngaysinh'),
+                'dia_chi' => $request->input('diachi'),
+                'sdt' => $request->input('sdt'),
+            ]);
+            if ($taiKhoan->save() == true) {
+                return redirect()->back()->with('thongbao', 'Thêm tài khoản thành công !');
+            }
+            return redirect()->back()->with('thongbao', 'Thêm tài khoản không thành công !');
         }
-        return redirect()->back()->with('thongbao', 'Thêm tài khoản không thành công !');
+        return redirect()->back()->with('thongbao', 'Thêm tài khoản không thành công ! Username đã tồn tại !');
     }
 
     /**
@@ -103,7 +106,7 @@ class TaiKhoanController extends Controller
     public function edit(TaiKhoan $taiKhoan)
     {
         $loaiTaiKhoan = LoaiTaiKhoan::all();
-        return view('admin/edit-page/edit-account',['taiKhoan' => $taiKhoan,'loaiTaiKhoan' => $loaiTaiKhoan]);
+        return view('admin/edit-page/edit-account', ['taiKhoan' => $taiKhoan, 'loaiTaiKhoan' => $loaiTaiKhoan]);
     }
 
     /**
@@ -142,7 +145,7 @@ class TaiKhoanController extends Controller
             'dia_chi' => $request->input('diachi'),
             'sdt' => $request->input('sdt'),
         ]);
-        if ($taiKhoan->save() == true){
+        if ($taiKhoan->save() == true) {
             return redirect()->back()->with('thongbao', 'Cập nhật thông tin tài khoản thành công !');
         }
         return redirect()->back()->with('thongbao', 'Cập nhật thông tin tài khoản không thành công !');
@@ -159,14 +162,14 @@ class TaiKhoanController extends Controller
         //
     }
 
-    public function login(){
+    public function login()
+    {
         return view('admin/login');
     }
 
     public function authenticate(Request $request)
     {
-        if(Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('password')]))
-        {
+        if (Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('password')])) {
             $request->session()->regenerate();
 
             return redirect()->intended('/dashboard');
@@ -177,12 +180,14 @@ class TaiKhoanController extends Controller
         ]);
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect('/login');
     }
 
-    public function changepassword(Request $request){
+    public function changepassword(Request $request)
+    {
         //Kiểm tra các trường input
         $validated = Validator::make(
             $request->all(),
@@ -204,13 +209,12 @@ class TaiKhoanController extends Controller
             ]
         )->validate();
 
-        if(Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('matkhaucu')]))
-        {
-            $user = TaiKhoan::where('username','=',$request->input('username'))->first();
+        if (Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('matkhaucu')])) {
+            $user = TaiKhoan::where('username', '=', $request->input('username'))->first();
             $user->fill([
                 'password' => bcrypt($request->input('matkhaumoi')),
             ]);
-            if ($user->save() == true){
+            if ($user->save() == true) {
                 return redirect()->back()->with('thongbao', 'Cập nhật mật khẩu thành công !');
             }
             return redirect()->back()->with('thongbao', 'Cập nhật mật khẩu không thành công ! Có lỗi đã xảy ra !');

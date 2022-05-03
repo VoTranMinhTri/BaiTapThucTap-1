@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -74,7 +75,20 @@ Route::middleware('checklogout')->group(function () {
 
     //Bảng điều khiển
     Route::get('/dashboard', function () {
-        return view('admin/index');
+        //Thống kê
+        $tongsukien = SuKien::all()->count();
+        $tongve = Ve::all()->count();
+        $danhsachve = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')->whereYear('ves.created_at', '=', now()->year)->select('loai_ves.gia')->get();
+        $tongdoanhthu = 0;
+        for ($i = 0; $i < count($danhsachve); $i++) {
+            $tongdoanhthu = $tongdoanhthu + $danhsachve[$i]->gia;
+        }
+        $doanhthutungthang = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')
+        ->whereYear('ves.created_at', '=', now()->year)
+        ->select(DB::raw("MONTH(ves.created_at) month"), DB::raw('sum(loai_ves.gia) doanhthu'))
+        ->groupBy('month')
+        ->get();
+        return view('admin/index',['tongsukien'=>$tongsukien,'tongve'=>$tongve,'tongdoanhthu'=>$tongdoanhthu,'doanhthutungthang' => $doanhthutungthang]);
     });
 
     //Quản lý sự kiện

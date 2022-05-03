@@ -157,7 +157,7 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="/eventadmin" aria-expanded="false"><i class="me-2 mdi mdi-star-circle"></i><span
                                     class="hide-menu">Sự kiện</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="#"
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark tabticket" href="#"
                                 aria-expanded="false"><i class="me-2 mdi mdi-ticket"></i><span
                                     class="hide-menu">Vé</span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -172,7 +172,7 @@
                             </ul>
                         </li>
                         @if (Auth::user()->loai_tai_khoan_id == 1)
-                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark tabaccount"
                                     href="#" aria-expanded="false"><i class="me-2 mdi mdi-account-outline"></i><span
                                         class="hide-menu">Tài khoản</span></a>
                                 <ul aria-expanded="false" class="collapse  first-level">
@@ -214,12 +214,12 @@
     <script src="{{ asset('assets/admin/dist/js/custom.min.js') }}"></script>
     <!-- <script src="../../dist/js/pages/dashboards/dashboard1.js"></script> -->
     <!-- Charts js Files -->
-    <script src="{{ asset('assets/admin/libs/flot/excanvas.js') }}"></script>
+    {{-- <script src="{{ asset('assets/admin/libs/flot/excanvas.js') }}"></script> --}}
     <script src="{{ asset('assets/admin/libs/flot/jquery.flot.js') }}"></script>
-    <script src="{{ asset('assets/admin/libs/flot/jquery.flot.pie.js') }}"></script>
+    {{-- <script src="{{ asset('assets/admin/libs/flot/jquery.flot.pie.js') }}"></script>
     <script src="{{ asset('assets/admin/libs/flot/jquery.flot.time.js') }}"></script>
     <script src="{{ asset('assets/admin/libs/flot/jquery.flot.stack.js') }}"></script>
-    <script src="{{ asset('assets/admin/libs/flot/jquery.flot.crosshair.js') }}"></script>
+    <script src="{{ asset('assets/admin/libs/flot/jquery.flot.crosshair.js') }}"></script> --}}
     <script src="{{ asset('assets/admin/libs/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
     <script src="{{ asset('assets/admin/dist/js/pages/chart/chart-page-init.js') }}"></script>
 
