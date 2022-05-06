@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -19,6 +18,8 @@ use App\Models\Ve;
 use App\Models\LoaiVe;
 use App\Models\TaiKhoan;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,22 @@ Route::resource('ve', VeController::class);
 Route::get('/contact', function () {
     return view('user/contact');
 });
-//Mail
+//Tải vé
+Route::get('pdf', function (Request $request) {
+    $dsve = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
+    ->where('email','=',$request->input('email'))
+    ->where('loai_ve_id','=',$request->input('loaiveid'))
+    ->where('ves.created_at','=',$request->input('thoigiantaove'))
+    ->select('ves.idve','loai_ves.ten_loai_ve','ves.ngay_su_dung','ves.ho_ten','ves.sdt','ves.email','ves.hinh_anh_ma_qr')
+    ->get();
+    view()->share('dsve',$dsve);
+    ini_set('max_execution_time', '300');
+    $pdf = PDF::loadView('pdf/pdf', compact($dsve));
+    return $pdf->download('DamSenPark-Ticket.pdf');
+})->name('pdf');
+//Thanh toán
+Route::post('/thanhtoan', [TheThanhToanController::class, 'thanhtoan']);
+//Mail liên hệ
 Route::get('/guimaillienhe', function (Request $request) {
     $details = [
         'title' => 'Khách hàng gửi liên hệ',
@@ -59,6 +75,20 @@ Route::get('/guimaillienhe', function (Request $request) {
 
     //Quay trở lại trang
     return redirect()->back()->with('thongbao', 'thongbao');
+});
+//Mail gửi vé
+Route::get('/guive', function (Request $request) {
+    $dsve = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
+    ->where('email','=',$request->input('email'))
+    ->where('loai_ve_id','=',$request->input('loaiveid'))
+    ->where('ves.created_at','=',$request->input('thoigiantaove'))
+    ->select('ves.idve','loai_ves.ten_loai_ve','ves.ngay_su_dung','ves.ho_ten','ves.sdt','ves.email','ves.hinh_anh_ma_qr','ves.created_at','ves.loai_ve_id')
+    ->get();
+
+    Mail::to($request->input('email'))->send(new \App\Mail\SendTicket($dsve));
+
+    //Quay trở lại trang
+    return redirect()->back()->with(['thongbao'=>'Gửi email thành công !','dsve'=>$dsve]);
 });
 //Resource
 Route::resource('suKien', SuKienController::class);
@@ -83,12 +113,19 @@ Route::middleware('checklogout')->group(function () {
         for ($i = 0; $i < count($danhsachve); $i++) {
             $tongdoanhthu = $tongdoanhthu + $danhsachve[$i]->gia;
         }
+        $sovecb = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
+        ->where('ves.loai_ve_id', '=', 1)
+        ->select(DB::raw("COUNT(ves_idve) so_ve, loai_ves.ten_loai_ve"));
+        $sovetg = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
+        ->where('ves.loai_ve_id', '=', 2)
+        ->select(DB::raw("COUNT(ves_idve) so_ve, loai_ves.ten_loai_ve"));
+
         $doanhthutungthang = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')
         ->whereYear('ves.created_at', '=', now()->year)
         ->select(DB::raw("MONTH(ves.created_at) month"), DB::raw('sum(loai_ves.gia) doanhthu'))
         ->groupBy('month')
         ->get();
-        return view('admin/index',['tongsukien'=>$tongsukien,'tongve'=>$tongve,'tongdoanhthu'=>$tongdoanhthu,'doanhthutungthang' => $doanhthutungthang]);
+        return view('admin/index',['tongsukien'=>$tongsukien,'tongve'=>$tongve,'tongdoanhthu'=>$tongdoanhthu,'doanhthutungthang' => $doanhthutungthang,'sovecb'=>$sovecb,'sovetg'=>$sovetg]);
     });
 
     //Quản lý sự kiện

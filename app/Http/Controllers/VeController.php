@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateVeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+
 class VeController extends Controller
 {
     /**
@@ -15,10 +16,10 @@ class VeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $dsve = Session::get('dsve');
-        if(empty($dsve)){
+        if (empty($dsve)) {
             return redirect('/');
         }
         return view('user/pay-success', ['dsve' => $dsve]);

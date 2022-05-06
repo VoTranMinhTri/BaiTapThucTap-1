@@ -46,7 +46,7 @@ class TheThanhToanController extends Controller
         ->where('cvv_cvc','=',$request->input('cvv'))
         ->first();
         if(!empty($ktthongtin)){
-            $thoigiantao = Carbon::now();
+            $thoigiantao = Carbon::now('Asia/Ho_Chi_Minh');
             for($i=0;$i<$request->input('sove');$i++){
                 $ve = new Ve;
                 $ve->fill([
@@ -61,8 +61,10 @@ class TheThanhToanController extends Controller
                 ]);
                 $ve->save();
             }
-            $dsve = Ve::where('email','=',$request->input('email'))
-            ->where('created_at','=',$thoigiantao)
+            $dsve = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
+            ->where('email','=',$request->input('email'))
+            ->where('ves.created_at','=',$thoigiantao)
+            ->select('ves.idve','loai_ves.ten_loai_ve','ves.ngay_su_dung','ves.ho_ten','ves.sdt','ves.email','ves.created_at','ves.loai_ve_id','ves.hinh_anh_ma_qr')
             ->get();
 
             //Định dạng lại ngày
