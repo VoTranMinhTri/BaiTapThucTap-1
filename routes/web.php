@@ -113,19 +113,34 @@ Route::middleware('checklogout')->group(function () {
         for ($i = 0; $i < count($danhsachve); $i++) {
             $tongdoanhthu = $tongdoanhthu + $danhsachve[$i]->gia;
         }
+
+        //Lấy tổng số vé của vé cơ bản và trọn gói
         $sovecb = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
         ->where('ves.loai_ve_id', '=', 1)
-        ->select(DB::raw("COUNT(ves_idve) so_ve, loai_ves.ten_loai_ve"));
+        ->count();
         $sovetg = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
         ->where('ves.loai_ve_id', '=', 2)
-        ->select(DB::raw("COUNT(ves_idve) so_ve, loai_ves.ten_loai_ve"));
+        ->count();
+
+        //Lấy tổng số của mỗi loại vé trong từng tháng
+        $sovecbtungthang =Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
+        ->where('ves.loai_ve_id', '=', 1)
+        ->select(DB::raw("MONTH(ves.created_at) thang,COUNT(ves.idve) so_ve"))
+        ->groupBy('thang')
+        ->get();
+
+        $sovetgtungthang =Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
+        ->where('ves.loai_ve_id', '=', 2)
+        ->select(DB::raw("MONTH(ves.created_at) thang,COUNT(ves.idve) so_ve"))
+        ->groupBy('thang')
+        ->get();
 
         $doanhthutungthang = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')
         ->whereYear('ves.created_at', '=', now()->year)
         ->select(DB::raw("MONTH(ves.created_at) month"), DB::raw('sum(loai_ves.gia) doanhthu'))
         ->groupBy('month')
         ->get();
-        return view('admin/index',['tongsukien'=>$tongsukien,'tongve'=>$tongve,'tongdoanhthu'=>$tongdoanhthu,'doanhthutungthang' => $doanhthutungthang,'sovecb'=>$sovecb,'sovetg'=>$sovetg]);
+        return view('admin/index',['sovetgtungthang'=>$sovetgtungthang,'sovecbtungthang'=>$sovecbtungthang,'tongsukien'=>$tongsukien,'tongve'=>$tongve,'tongdoanhthu'=>$tongdoanhthu,'doanhthutungthang' => $doanhthutungthang,'sovecb'=>$sovecb,'sovetg'=>$sovetg]);
     });
 
     //Quản lý sự kiện

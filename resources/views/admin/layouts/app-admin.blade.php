@@ -221,7 +221,7 @@
     <script src="{{ asset('assets/admin/libs/flot/jquery.flot.stack.js') }}"></script>
     <script src="{{ asset('assets/admin/libs/flot/jquery.flot.crosshair.js') }}"></script> --}}
     <script src="{{ asset('assets/admin/libs/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/dist/js/pages/chart/chart-page-init.js') }}"></script>
+
 
     <!-- Select2 js Files -->
     {{-- <script src="{{ asset('assets/admin/libs/select2/dist/js/select2.full.min.js') }}"></script> --}}

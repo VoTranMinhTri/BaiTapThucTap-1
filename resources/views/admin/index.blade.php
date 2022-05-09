@@ -94,7 +94,7 @@
                             <div class="d-md-flex align-items-center">
                                 <div>
                                     <h4 class="card-title">Phân tích</h4>
-                                    <h5 class="card-subtitle">Tổng quan về doanh thu năm {{ date("Y") }}</h5>
+                                    <h5 class="card-subtitle">Tổng quan về doanh thu năm {{ date('Y') }}</h5>
                                 </div>
                             </div>
                             <div class="row">
@@ -125,7 +125,7 @@
                                                 <i class="far fa-money-bill-alt mb-1 font-16"></i>
                                                 <h5 class="mb-0 mt-1">{{ number_format($tongdoanhthu, 0) }}</h5>
                                                 <small class="font-light">
-                                                    Tổng doanh thu trong năm {{ date("Y") }}</small>
+                                                    Tổng doanh thu trong năm {{ date('Y') }}</small>
                                             </div>
                                         </div>
 
@@ -137,6 +137,26 @@
                     </div>
                 </div>
             </div>
+            <!-- Charts -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Biểu đồ tròn tỉ lệ vé khách hàng mua</h5>
+                            <div class="pie" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Biểu đồ cột số vé khách hàng mua mỗi tháng</h5>
+                            <div class="bars" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Charts -->
         </div>
         <!-- ============================================================== -->
         <!-- End Container fluid  -->
@@ -304,6 +324,171 @@
                     label: "Doanh thu",
                 }], options);
             }
+
+            var data = [];
+            var sovecb = <?php echo json_encode($sovecb); ?>;
+            var sovetg = <?php echo json_encode($sovetg); ?>;
+            for (var i = 0; i < 2; i++) {
+                if (i == 0) {
+                    data[i] = {
+                        label: "Vé cơ bản",
+                        data: sovecb
+                    }
+                } else {
+                    data[i] = {
+                        label: "Vé trọn gói",
+                        data: sovetg
+                    }
+                }
+            }
+
+            var pie = $.plot($(".pie"), data, {
+                series: {
+                    pie: {
+                        show: true,
+                        radius: 3 / 4,
+                        label: {
+                            show: true,
+                            radius: 3 / 4,
+                            formatter: function(label, series) {
+                                return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' +
+                                    label + '<br/>' + Math.round(series.percent) + '%</div>';
+                            },
+                            background: {
+                                opacity: 0.5,
+                                color: '#000'
+                            }
+                        },
+                        innerRadius: 0.2
+                    },
+                    legend: {
+                        show: false
+                    }
+                }
+            });
+
+            //Biểu đồ cột
+            var sovecbtungthang = <?php echo json_encode($sovecbtungthang); ?>;
+            var sovetgtungthang = <?php echo json_encode($sovetgtungthang); ?>;
+            var d1 = [
+                [1, 0],//1
+                [1, 0],
+                [2, 0],//2
+                [2, 0],
+                [3, 0],//3
+                [3, 0],
+                [4, 0],//4
+                [4, 0],
+                [5, 0],//5
+                [5, 0],
+                [6, 0],//6
+                [6, 0],
+                [7, 0],//7
+                [7, 0],
+                [8, 0],//8
+                [8, 0],
+                [9, 0],//9
+                [9, 0],
+                [10, 0],//10
+                [10, 0],
+                [11, 0],//11
+                [11, 0],
+                [12, 0],//12
+                [12, 0],
+            ];
+            sovecbtungthang.forEach(element => {
+                if(element.thang == 1){
+                    d1[0] = [1, element.so_ve];
+                }
+                else if(element.thang == 2){
+                    d1[2] = [2, element.so_ve];
+                }
+                else if(element.thang == 3){
+                    d1[4] = [3, element.so_ve];
+                }
+                else if(element.thang == 4){
+                    d1[6] = [4, element.so_ve];
+                }
+                else if(element.thang == 5){
+                    d1[8] = [5, element.so_ve];
+                }
+                else if(element.thang == 6){
+                    d1[10] = [6, element.so_ve];
+                }
+                else if(element.thang == 7){
+                    d1[12] = [7, element.so_ve];
+                }
+                else if(element.thang == 8){
+                    d1[14] = [8, element.so_ve];
+                }
+                else if(element.thang == 9){
+                    d1[16] = [9, element.so_ve];
+                }
+                else if(element.thang == 10){
+                    d1[18] = [10, element.so_ve];
+                }
+                else if(element.thang == 11){
+                    d1[20] = [11, element.so_ve];
+                }
+                else{
+                    d1[22] = [12, element.so_ve];
+                }
+            });
+            sovetgtungthang.forEach(element => {
+                if(element.thang == 1){
+                    d1[1] = [1, element.so_ve];
+                }
+                else if(element.thang == 2){
+                    d1[3] = [2, element.so_ve];
+                }
+                else if(element.thang == 3){
+                    d1[5] = [3, element.so_ve];
+                }
+                else if(element.thang == 4){
+                    d1[7] = [4, element.so_ve];
+                }
+                else if(element.thang == 5){
+                    d1[9] = [5, element.so_ve];
+                }
+                else if(element.thang == 6){
+                    d1[11] = [6, element.so_ve];
+                }
+                else if(element.thang == 7){
+                    d1[13] = [7, element.so_ve];
+                }
+                else if(element.thang == 8){
+                    d1[15] = [8, element.so_ve];
+                }
+                else if(element.thang == 9){
+                    d1[17] = [9, element.so_ve];
+                }
+                else if(element.thang == 10){
+                    d1[19] = [10, element.so_ve];
+                }
+                else if(element.thang == 11){
+                    d1[21] = [11, element.so_ve];
+                }
+                else{
+                    d1[23] = [12, element.so_ve];
+                }
+            });
+
+            var data = new Array();
+            data.push({
+                data: d1,
+                bars: {
+                    show: true,
+                    barWidth: 0.4,
+                    order: 1,
+                }
+            });
+
+            //Display graph
+            var bar = $.plot($(".bars"), data, {
+                legend: true,
+                color: "#2b2b2b",
+            });
+
         });
     </script>
 @endsection
