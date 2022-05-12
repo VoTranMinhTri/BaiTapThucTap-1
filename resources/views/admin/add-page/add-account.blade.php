@@ -44,7 +44,7 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group row">
-                                                    <label for="product_name" class="col-sm-12">Username<span
+                                                    <label for="" class="col-sm-12">Username<span
                                                             style="color:red">*</span></label>
                                                     <div class="col-sm-12">
                                                         <input class="form-control" name="username" type="text"
@@ -54,7 +54,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group row">
-                                                    <label for="product_name" class="col-sm-12">Password<span
+                                                    <label for="" class="col-sm-12">Password<span
                                                             style="color:red">*</span></label>
                                                     <div class="col-sm-11">
                                                         <input class="form-control" name="password" type="password"
@@ -68,7 +68,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group row">
-                                                    <label for="product_name" class="col-sm-12">Họ tên<span
+                                                    <label for="" class="col-sm-12">Họ tên<span
                                                             style="color:red">*</span></label>
                                                     <div class="col-sm-12">
                                                         <input class="form-control" name="hoten" type="text"
@@ -78,7 +78,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group row">
-                                                    <label for="product_name" class="col-sm-12">Ngày sinh<span
+                                                    <label for="" class="col-sm-12">Ngày sinh<span
                                                             style="color:red">*</span></label>
                                                     <div class="col-sm-12">
                                                         <input class="form-control" name="ngaysinh" type="date"
@@ -88,7 +88,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group row">
-                                                    <label for="product_name" class="col-sm-12">Địa chỉ<span
+                                                    <label for="" class="col-sm-12">Địa chỉ<span
                                                             style="color:red">*</span></label>
                                                     <div class="col-sm-12">
                                                         <input class="form-control" name="diachi" type="text"
@@ -98,11 +98,21 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group row">
-                                                    <label for="product_name" class="col-sm-12">SĐT<span
+                                                    <label for="" class="col-sm-12">SĐT<span
                                                             style="color:red">*</span></label>
                                                     <div class="col-sm-12">
                                                         <input class="form-control" name="sdt" type="text"
                                                             style="height: 40px;" placeholder="SĐT" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label for="" class="col-sm-12">Email<span
+                                                            style="color:red">*</span></label>
+                                                    <div class="col-sm-12">
+                                                        <input class="form-control" name="email" type="email"
+                                                            style="height: 40px;" placeholder="Email" value="">
                                                     </div>
                                                 </div>
                                             </div>

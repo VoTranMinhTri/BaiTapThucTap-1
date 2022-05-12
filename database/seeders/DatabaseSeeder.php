@@ -10,6 +10,11 @@ use App\Models\LoaiVe;
 use App\Models\TheThanhToan;
 use App\Models\LoaiTaiKhoan;
 use App\Models\TaiKhoan;
+use App\Models\Ve;
+use App\Models\HoaDon;
+use App\Models\ChiTietHoaDon;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -226,7 +231,178 @@ class DatabaseSeeder extends Seeder
             'ngay_sinh' => '2000-01-01',
             'dia_chi' => '111 Lũy Bán Bích, Hồ Chí Minh',
             'sdt' => '0123456789',
+            'email' => 'damsenpark2022@gmail.com',
+            'token' => Str::random(60)
         ]);
 
+        //Tạo hóa đơn
+        $hoaDon = new HoaDon;
+        $hoaDon->fill([
+            'idhd' => 'HD' . Str::random(5) . str_replace('-', '', '2022-1-1'),
+            'ho_ten' => 'Nguyễn Văn A',
+            'sdt' => '0987654321',
+            'email' => 'testa@gmail.com',
+            'ngay_lap' => '2022-1-1'
+        ]);
+        $hoaDon->save();
+        //Tạo vé
+        for ($i = 0; $i < 973; $i++) {
+            $ve = new Ve;
+            $ve->fill([
+                'idve' => Str::random(5) . str_replace('-', '', '2022-1-1'),
+                'loai_ve_id' => 1,
+                'ngay_su_dung' => '2022-1-1',
+                'hinh_anh_ma_qr' => 'maqr.png',
+                'ho_ten' => 'Nguyễn Văn A',
+                'sdt' => '0987654321',
+                'email' => 'testa@gmail.com',
+                'created_at' => '2022-1-1'
+            ]);
+            $ve->save();
+
+            //Tạo chi tiết hóa đơn
+            $chiTietHoaDon = new ChiTietHoaDon;
+            $chiTietHoaDon->fill([
+                'hoa_don_id' => $hoaDon->idhd,
+                've_id' => $ve->idve,
+            ]);
+            $chiTietHoaDon->save();
+        }
+
+        //Tạo hóa đơn
+        $hoaDon = new HoaDon;
+        $hoaDon->fill([
+            'idhd' => 'HD' . Str::random(5) . str_replace('-', '', '2022-2-1'),
+            'ho_ten' => 'Nguyễn Văn B',
+            'sdt' => '0987654325',
+            'email' => 'testb@gmail.com',
+            'ngay_lap' => '2022-2-1'
+        ]);
+        $hoaDon->save();
+        //Tạo vé
+        for ($i = 0; $i < 1001; $i++) {
+            $ve = new Ve;
+            $ve->fill([
+                'idve' => Str::random(5) . str_replace('-', '', '2022-2-1'),
+                'loai_ve_id' => 1,
+                'ngay_su_dung' => '2022-2-1',
+                'hinh_anh_ma_qr' => 'maqr.png',
+                'ho_ten' => 'Nguyễn Văn B',
+                'sdt' => '0987654325',
+                'email' => 'testb@gmail.com',
+                'created_at' => '2022-2-1'
+            ]);
+            $ve->save();
+
+            //Tạo chi tiết hóa đơn
+            $chiTietHoaDon = new ChiTietHoaDon;
+            $chiTietHoaDon->fill([
+                'hoa_don_id' => $hoaDon->idhd,
+                've_id' => $ve->idve,
+            ]);
+            $chiTietHoaDon->save();
+        }
+
+        //Tạo hóa đơn
+        $hoaDon = new HoaDon;
+        $hoaDon->fill([
+            'idhd' => 'HD' . Str::random(5) . str_replace('-', '', '2022-3-1'),
+            'ho_ten' => 'Nguyễn Văn C',
+            'sdt' => '0987654320',
+            'email' => 'testc@gmail.com',
+            'ngay_lap' => '2022-3-1'
+        ]);
+        $hoaDon->save();
+        //Tạo vé
+        for ($i = 0; $i < 1057; $i++) {
+            $ve = new Ve;
+            $ve->fill([
+                'idve' => Str::random(5) . str_replace('-', '', '2022-3-1'),
+                'loai_ve_id' => 2,
+                'ngay_su_dung' => '2022-3-1',
+                'hinh_anh_ma_qr' => 'maqr.png',
+                'ho_ten' => 'Nguyễn Văn C',
+                'sdt' => '0987654320',
+                'email' => 'testc@gmail.com',
+                'created_at' => '2022-3-1'
+            ]);
+            $ve->save();
+
+            //Tạo chi tiết hóa đơn
+            $chiTietHoaDon = new ChiTietHoaDon;
+            $chiTietHoaDon->fill([
+                'hoa_don_id' => $hoaDon->idhd,
+                've_id' => $ve->idve,
+            ]);
+            $chiTietHoaDon->save();
+        }
+
+        //Tạo hóa đơn
+        $hoaDon = new HoaDon;
+        $hoaDon->fill([
+            'idhd' => 'HD' . Str::random(5) . str_replace('-', '', '2022-4-1'),
+            'ho_ten' => 'Nguyễn Văn D',
+            'sdt' => '0987654328',
+            'email' => 'testd@gmail.com',
+            'ngay_lap' => '2022-4-1'
+        ]);
+        $hoaDon->save();
+        //Tạo vé
+        for ($i = 0; $i < 913; $i++) {
+            $ve = new Ve;
+            $ve->fill([
+                'idve' => Str::random(5) . str_replace('-', '', '2022-4-1'),
+                'loai_ve_id' => 1,
+                'ngay_su_dung' => '2022-4-1',
+                'hinh_anh_ma_qr' => 'maqr.png',
+                'ho_ten' => 'Nguyễn Văn D',
+                'sdt' => '0987654328',
+                'email' => 'testd@gmail.com',
+                'created_at' => '2022-4-1'
+            ]);
+            $ve->save();
+
+            //Tạo chi tiết hóa đơn
+            $chiTietHoaDon = new ChiTietHoaDon;
+            $chiTietHoaDon->fill([
+                'hoa_don_id' => $hoaDon->idhd,
+                've_id' => $ve->idve,
+            ]);
+            $chiTietHoaDon->save();
+        }
+
+        //Tạo hóa đơn
+        $hoaDon = new HoaDon;
+        $hoaDon->fill([
+            'idhd' => 'HD' . Str::random(5) . str_replace('-', '', '2022-5-1'),
+            'ho_ten' => 'Nguyễn Văn E',
+            'sdt' => '0987654378',
+            'email' => 'teste@gmail.com',
+            'ngay_lap' => '2022-5-1'
+        ]);
+        $hoaDon->save();
+        //Tạo vé
+        for ($i = 0; $i < 1029; $i++) {
+            $ve = new Ve;
+            $ve->fill([
+                'idve' => Str::random(5) . str_replace('-', '', '2022-5-1'),
+                'loai_ve_id' => 2,
+                'ngay_su_dung' => '2022-5-1',
+                'hinh_anh_ma_qr' => 'maqr.png',
+                'ho_ten' => 'Nguyễn Văn E',
+                'sdt' => '0987654378',
+                'email' => 'teste@gmail.com',
+                'created_at' => '2022-5-1'
+            ]);
+            $ve->save();
+
+            //Tạo chi tiết hóa đơn
+            $chiTietHoaDon = new ChiTietHoaDon;
+            $chiTietHoaDon->fill([
+                'hoa_don_id' => $hoaDon->idhd,
+                've_id' => $ve->idve,
+            ]);
+            $chiTietHoaDon->save();
+        }
     }
 }

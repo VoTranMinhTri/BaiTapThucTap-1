@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChiTietHoaDon;
 use App\Models\TheThanhToan;
 use App\Models\Ve;
+use App\Models\HoaDon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 use Carbon\Carbon;
-use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class TheThanhToanController extends Controller
 {
@@ -47,10 +48,23 @@ class TheThanhToanController extends Controller
         ->first();
         if(!empty($ktthongtin)){
             $thoigiantao = Carbon::now('Asia/Ho_Chi_Minh');
+
+            //Tạo hóa đơn
+            $hoaDon = new HoaDon;
+            $hoaDon->fill([
+                'idhd'=> 'HD'.Str::random(5).str_replace('-','',$ngaysd),
+                'ho_ten'=>$request->input('hoten'),
+                'sdt'=>$request->input('sdt'),
+                'email'=>$request->input('email'),
+                'ngay_lap'=> $ngaysd
+            ]);
+            $hoaDon->save();
+
+            //Tạo vé
             for($i=0;$i<$request->input('sove');$i++){
                 $ve = new Ve;
                 $ve->fill([
-                    'idve'=> Str::random(3).str_replace('-','',$ngaysd),
+                    'idve'=> Str::random(5).str_replace('-','',$ngaysd),
                     'loai_ve_id' =>$request->input('loaive'),
                     'ngay_su_dung'=>$ngaysd,
                     'hinh_anh_ma_qr'=>'maqr.png',
@@ -60,6 +74,14 @@ class TheThanhToanController extends Controller
                     'created_at'=> $thoigiantao
                 ]);
                 $ve->save();
+
+                //Tạo chi tiết hóa đơn
+                $chiTietHoaDon = new ChiTietHoaDon;
+                $chiTietHoaDon->fill([
+                    'hoa_don_id'=> $hoaDon->idhd,
+                    've_id'=> $ve->idve,
+                ]);
+                $chiTietHoaDon->save();
             }
             $dsve = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
             ->where('email','=',$request->input('email'))

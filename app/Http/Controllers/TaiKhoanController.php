@@ -7,6 +7,7 @@ use App\Models\LoaiTaiKhoan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class TaiKhoanController extends Controller
 {
@@ -48,12 +49,14 @@ class TaiKhoanController extends Controller
                 'sdt' => 'required|max:11|min:10',
                 'loaitaikhoan' => 'required',
                 'ngaysinh' => 'required',
-                'diachi' => 'required'
+                'diachi' => 'required',
+                'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix'
             ],
             $messages = [
                 'required' => ':attribute là bắt buộc',
                 'max' => ':attribute không chính xác',
                 'min' => ':attribute không chính xác',
+                'regex' => ':attribute không hợp lệ'
             ],
             [
                 'loaitaikhoan' => 'Loại tài khoản',
@@ -62,26 +65,33 @@ class TaiKhoanController extends Controller
                 'hoten' => 'Họ tên',
                 'sdt' => 'Số điện thoại',
                 'diachi' => 'Địa chỉ',
-                'ngaysinh' => 'Ngày sinh'
+                'ngaysinh' => 'Ngày sinh',
+                'email' => 'Email'
             ]
         )->validate();
 
         $kttontai = TaiKhoan::Where('username', '=', $request->input('username'))->first();
         if (empty($kttontai)) {
-            $taiKhoan = new TaiKhoan;
-            $taiKhoan->fill([
-                'username' => $request->input('username'),
-                'password' => bcrypt($request->input('password')),
-                'loai_tai_khoan_id' => $request->input('loaitaikhoan'),
-                'ho_ten' => $request->input('hoten'),
-                'ngay_sinh' => $request->input('ngaysinh'),
-                'dia_chi' => $request->input('diachi'),
-                'sdt' => $request->input('sdt'),
-            ]);
-            if ($taiKhoan->save() == true) {
-                return redirect()->back()->with('thongbao', 'Thêm tài khoản thành công !');
+            $ktemailtontai = TaiKhoan::Where('email', '=', $request->input('email'))->first();
+            if (empty($ktemailtontai)) {
+                $taiKhoan = new TaiKhoan;
+                $taiKhoan->fill([
+                    'username' => $request->input('username'),
+                    'password' => bcrypt($request->input('password')),
+                    'loai_tai_khoan_id' => $request->input('loaitaikhoan'),
+                    'ho_ten' => $request->input('hoten'),
+                    'ngay_sinh' => $request->input('ngaysinh'),
+                    'dia_chi' => $request->input('diachi'),
+                    'sdt' => $request->input('sdt'),
+                    'email' => $request->input('email'),
+                    'token'=>Str::random(60)
+                ]);
+                if ($taiKhoan->save() == true) {
+                    return redirect()->back()->with('thongbao', 'Thêm tài khoản thành công !');
+                }
+                return redirect()->back()->with('thongbao', 'Thêm tài khoản không thành công !');
             }
-            return redirect()->back()->with('thongbao', 'Thêm tài khoản không thành công !');
+            return redirect()->back()->with('thongbao', 'Thêm tài khoản không thành công ! Email đã được tài khoản khác sử dụng !');
         }
         return redirect()->back()->with('thongbao', 'Thêm tài khoản không thành công ! Username đã tồn tại !');
     }
@@ -124,31 +134,41 @@ class TaiKhoanController extends Controller
                 'hoten' => 'required',
                 'sdt' => 'required|max:11|min:10',
                 'ngaysinh' => 'required',
-                'diachi' => 'required'
+                'diachi' => 'required',
+                'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix'
             ],
             $messages = [
                 'required' => ':attribute là bắt buộc',
                 'max' => ':attribute không chính xác',
                 'min' => ':attribute không chính xác',
+                'regex' => ':attribute không hợp lệ'
             ],
             [
                 'hoten' => 'Họ tên',
                 'sdt' => 'Số điện thoại',
                 'diachi' => 'Địa chỉ',
-                'ngaysinh' => 'Ngày sinh'
+                'ngaysinh' => 'Ngày sinh',
+                'email' => 'Email'
             ]
         )->validate();
 
-        $taiKhoan->fill([
-            'ho_ten' => $request->input('hoten'),
-            'ngay_sinh' => $request->input('ngaysinh'),
-            'dia_chi' => $request->input('diachi'),
-            'sdt' => $request->input('sdt'),
-        ]);
-        if ($taiKhoan->save() == true) {
-            return redirect()->back()->with('thongbao', 'Cập nhật thông tin tài khoản thành công !');
+        $ktemailtontai = TaiKhoan::Where('email', '=', $request->input('email'))
+        ->where('username','!=',$taiKhoan->username)
+        ->first();
+        if (empty($ktemailtontai)) {
+            $taiKhoan->fill([
+                'ho_ten' => $request->input('hoten'),
+                'ngay_sinh' => $request->input('ngaysinh'),
+                'dia_chi' => $request->input('diachi'),
+                'sdt' => $request->input('sdt'),
+                'email' => $request->input('email')
+            ]);
+            if ($taiKhoan->save() == true) {
+                return redirect()->back()->with('thongbao', 'Cập nhật thông tin tài khoản thành công !');
+            }
+            return redirect()->back()->with('thongbao', 'Cập nhật thông tin tài khoản không thành công !');
         }
-        return redirect()->back()->with('thongbao', 'Cập nhật thông tin tài khoản không thành công !');
+        return redirect()->back()->with('thongbao', 'Cập nhật tài khoản không thành công ! Email đã được tài khoản khác sử dụng !');
     }
 
     /**

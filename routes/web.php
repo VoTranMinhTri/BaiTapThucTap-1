@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -10,8 +11,11 @@ use App\Http\Controllers\VeController;
 use App\Http\Controllers\LoaiVeController;
 use App\Http\Controllers\TaiKhoanController;
 use App\Http\Controllers\LoaiTaiKhoanController;
+use App\Http\Controllers\HoaDonController;
+use App\Models\ChiTietHoaDon;
 use App\Models\LoaiTaiKhoan;
 use App\Models\SuKien;
+use App\Models\HoaDon;
 use App\Models\NoiDungSuKien;
 use App\Models\HinhAnhSuKien;
 use App\Models\Ve;
@@ -19,6 +23,8 @@ use App\Models\LoaiVe;
 use App\Models\TaiKhoan;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 
 /*
@@ -46,15 +52,77 @@ Route::resource('ve', VeController::class);
 Route::get('/contact', function () {
     return view('user/contact');
 });
+//Lấy lại mật khẩu
+Route::get('/getpassword', function () {
+    return view('admin/get-password');
+});
+Route::post('/getpassword', function (Request $request) {
+    //Kiểm tra các trường input
+    $validated = Validator::make(
+        $request->all(),
+        [
+            'username' => 'required',
+        ],
+        $messages = [
+            'required' => ':attribute là bắt buộc',
+        ],
+        [
+            'username' => 'Tên tài khoản',
+        ]
+    )->validate();
+    //Mail::to($request->input('email'))->send(new \App\Mail\SendTicket($dsve));
+    $kttontai = TaiKhoan::Where('username', '=', $request->input('username'))->first();
+    if (!empty($kttontai)) {
+        $details = [
+            'title' => 'Cập nhật lại mật khẩu',
+            'link' => 'http://127.0.0.1:8000/recover-pass?token=' . $kttontai->token,
+        ];
+        Mail::to('damsenpark2022@gmail.com')->send(new \App\Mail\RecoverPass($details));
+        //Quay trở lại trang
+        return redirect()->back()->with(['thongbao' => 'Gửi yêu cầu thành công !']);
+    }
+    return redirect()->back()->with('thongbao', 'Username không tồn tại !');
+});
+//Trang cập nhật mật khẩu
+Route::get('/recover-pass', function () {
+    return view("admin/recover-password");
+});
+Route::post('/recover-pass', function (Request $request) {
+    $taiKhoan = TaiKhoan::where('token', $request->input('token'))->first();
+    $validated = Validator::make(
+        $request->all(),
+        [
+            'passwordmoi' => 'required|min:6',
+            'passwordxacnhan' => 'required|same:passwordmoi',
+        ],
+        $messages = [
+            'required' => ':attribute là bắt buộc',
+            'min' => ':attribute phải >= 6 ký tự',
+            'same' => ':attribute không giống với mật khẩu mới'
+        ],
+        [
+            'passwordmoi' => 'Mật khẩu mới',
+            'passwordxacnhan' => 'Mật khẩu xác nhận',
+        ]
+    )->validate();
+
+    if (!empty($taiKhoan)) {
+        TaiKhoan::where('token', $request->input('token'))->update(['password' => bcrypt($request->input('passwordmoi')), 'token' => Str::random(60)]);
+        return redirect()->route('/login')->with(['thongbao' => 'Cập nhật mật khẩu mới thành công !']);
+        // return redirect()->back()->with(['thongbao' => 'Cập nhật mật khẩu mới thành công !']);
+    } else {
+        return redirect()->back()->with(['thongbao' => 'Link cập nhật mật khẩu đã được sử dụng !','token' => $request->input('token')]);
+    }
+});
 //Tải vé
 Route::get('pdf', function (Request $request) {
-    $dsve = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
-    ->where('email','=',$request->input('email'))
-    ->where('loai_ve_id','=',$request->input('loaiveid'))
-    ->where('ves.created_at','=',$request->input('thoigiantaove'))
-    ->select('ves.idve','loai_ves.ten_loai_ve','ves.ngay_su_dung','ves.ho_ten','ves.sdt','ves.email','ves.hinh_anh_ma_qr')
-    ->get();
-    view()->share('dsve',$dsve);
+    $dsve = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')
+        ->where('email', '=', $request->input('email'))
+        ->where('loai_ve_id', '=', $request->input('loaiveid'))
+        ->where('ves.created_at', '=', $request->input('thoigiantaove'))
+        ->select('ves.idve', 'loai_ves.ten_loai_ve', 'ves.ngay_su_dung', 'ves.ho_ten', 'ves.sdt', 'ves.email', 'ves.hinh_anh_ma_qr')
+        ->get();
+    view()->share('dsve', $dsve);
     ini_set('max_execution_time', '300');
     $pdf = PDF::loadView('pdf/pdf', compact($dsve));
     return $pdf->download('DamSenPark-Ticket.pdf');
@@ -78,17 +146,17 @@ Route::get('/guimaillienhe', function (Request $request) {
 });
 //Mail gửi vé
 Route::get('/guive', function (Request $request) {
-    $dsve = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
-    ->where('email','=',$request->input('email'))
-    ->where('loai_ve_id','=',$request->input('loaiveid'))
-    ->where('ves.created_at','=',$request->input('thoigiantaove'))
-    ->select('ves.idve','loai_ves.ten_loai_ve','ves.ngay_su_dung','ves.ho_ten','ves.sdt','ves.email','ves.hinh_anh_ma_qr','ves.created_at','ves.loai_ve_id')
-    ->get();
+    $dsve = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')
+        ->where('email', '=', $request->input('email'))
+        ->where('loai_ve_id', '=', $request->input('loaiveid'))
+        ->where('ves.created_at', '=', $request->input('thoigiantaove'))
+        ->select('ves.idve', 'loai_ves.ten_loai_ve', 'ves.ngay_su_dung', 'ves.ho_ten', 'ves.sdt', 'ves.email', 'ves.hinh_anh_ma_qr', 'ves.created_at', 'ves.loai_ve_id')
+        ->get();
 
     Mail::to($request->input('email'))->send(new \App\Mail\SendTicket($dsve));
 
     //Quay trở lại trang
-    return redirect()->back()->with(['thongbao'=>'Gửi email thành công !','dsve'=>$dsve]);
+    return redirect()->back()->with(['thongbao' => 'Gửi email thành công !', 'dsve' => $dsve]);
 });
 //Resource
 Route::resource('suKien', SuKienController::class);
@@ -101,6 +169,7 @@ Route::middleware('checklogout')->group(function () {
     Route::resource('loaiVe', LoaiVeController::class);
     Route::resource('loaiTaiKhoan', LoaiTaiKhoanController::class);
     Route::resource('taiKhoan', TaiKhoanController::class);
+    Route::resource('hoaDon', HoaDonController::class);
 
 
     //Bảng điều khiển
@@ -108,40 +177,57 @@ Route::middleware('checklogout')->group(function () {
         //Thống kê
         $tongsukien = SuKien::all()->count();
         $tongve = Ve::all()->count();
-        $danhsachve = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')->whereYear('ves.created_at', '=', now()->year)->select('loai_ves.gia')->get();
+        $danhsachve = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')->whereYear('ves.created_at', '=', now()->year)->select('loai_ves.gia')->get();
         $tongdoanhthu = 0;
         for ($i = 0; $i < count($danhsachve); $i++) {
             $tongdoanhthu = $tongdoanhthu + $danhsachve[$i]->gia;
         }
 
         //Lấy tổng số vé của vé cơ bản và trọn gói
-        $sovecb = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
-        ->where('ves.loai_ve_id', '=', 1)
-        ->count();
-        $sovetg = Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
-        ->where('ves.loai_ve_id', '=', 2)
-        ->count();
+        $sovecb = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')
+            ->where('ves.loai_ve_id', '=', 1)
+            ->count();
+        $sovetg = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')
+            ->where('ves.loai_ve_id', '=', 2)
+            ->count();
 
         //Lấy tổng số của mỗi loại vé trong từng tháng
-        $sovecbtungthang =Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
-        ->where('ves.loai_ve_id', '=', 1)
-        ->select(DB::raw("MONTH(ves.created_at) thang,COUNT(ves.idve) so_ve"))
-        ->groupBy('thang')
-        ->get();
+        $sovecbtungthang = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')
+            ->where('ves.loai_ve_id', '=', 1)
+            ->select(DB::raw("MONTH(ves.created_at) thang,COUNT(ves.idve) so_ve"))
+            ->groupBy('thang')
+            ->get();
 
-        $sovetgtungthang =Ve::join('loai_ves','loai_ves.id','=','ves.loai_ve_id')
-        ->where('ves.loai_ve_id', '=', 2)
-        ->select(DB::raw("MONTH(ves.created_at) thang,COUNT(ves.idve) so_ve"))
-        ->groupBy('thang')
-        ->get();
+        $sovetgtungthang = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')
+            ->where('ves.loai_ve_id', '=', 2)
+            ->select(DB::raw("MONTH(ves.created_at) thang,COUNT(ves.idve) so_ve"))
+            ->groupBy('thang')
+            ->get();
 
         $doanhthutungthang = Ve::join('loai_ves', 'loai_ves.id', '=', 'ves.loai_ve_id')
-        ->whereYear('ves.created_at', '=', now()->year)
-        ->select(DB::raw("MONTH(ves.created_at) month"), DB::raw('sum(loai_ves.gia) doanhthu'))
-        ->groupBy('month')
-        ->get();
-        return view('admin/index',['sovetgtungthang'=>$sovetgtungthang,'sovecbtungthang'=>$sovecbtungthang,'tongsukien'=>$tongsukien,'tongve'=>$tongve,'tongdoanhthu'=>$tongdoanhthu,'doanhthutungthang' => $doanhthutungthang,'sovecb'=>$sovecb,'sovetg'=>$sovetg]);
+            ->whereYear('ves.created_at', '=', now()->year)
+            ->select(DB::raw("MONTH(ves.created_at) month"), DB::raw('sum(loai_ves.gia) doanhthu'))
+            ->groupBy('month')
+            ->get();
+        return view('admin/index', ['sovetgtungthang' => $sovetgtungthang, 'sovecbtungthang' => $sovecbtungthang, 'tongsukien' => $tongsukien, 'tongve' => $tongve, 'tongdoanhthu' => $tongdoanhthu, 'doanhthutungthang' => $doanhthutungthang, 'sovecb' => $sovecb, 'sovetg' => $sovetg]);
     });
+
+    //Quản lý hóa đơn
+    Route::get('/billadmin', function () {
+        $danhSachHoaDon = HoaDon::all();
+        //Định dạng lại ngày
+        foreach ($danhSachHoaDon as $tp) {
+            $tp->ngay_lap = Carbon::createFromFormat('Y-m-d', $tp->ngay_lap)->format('d/m/Y');
+        }
+        return view('admin/management-page/bill', ['danhSachHoaDon' => $danhSachHoaDon]);
+    });
+
+    //Chi tiết hóa đơn
+    Route::get('/detailbilladmin/{id}', function ($id) {
+        $danhSachCTHoaDon = ChiTietHoaDon::where('hoa_don_id', '=', $id)->get();
+        return view('admin/management-page/detail-bill', ['danhSachCTHoaDon' => $danhSachCTHoaDon]);
+    })->name('detailbilladmin');
+
 
     //Quản lý sự kiện
     Route::get('/eventadmin', function () {
@@ -229,13 +315,12 @@ Route::middleware('checklogout')->group(function () {
         return view('admin/management-page/change-pass');
     });
     Route::post('/change-pass', [TaiKhoanController::class, 'changepassword']);
-
 });
 
 //Kiểm tra đã đăng nhập
 Route::middleware('checkuser')->group(function () {
     //Trang đăng nhập
-    Route::get('/login', [TaiKhoanController::class, 'login']);
+    Route::get('/login', [TaiKhoanController::class, 'login'])->name('/login');
 });
 
 //Xác thực

@@ -82,6 +82,16 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group row">
+                                                    <label for="" class="col-sm-12">Email<span
+                                                            style="color:red">*</span></label>
+                                                    <div class="col-sm-12">
+                                                        <input class="form-control" name="email" type="email"
+                                                            style="height: 40px;" placeholder="Email" value="{{ $taiKhoan->email }}">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

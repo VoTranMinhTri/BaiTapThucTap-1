@@ -22,6 +22,8 @@ class CreateTaiKhoansTable extends Migration
             $table->date('ngay_sinh');
             $table->string('dia_chi');
             $table->string('sdt');
+            $table->string('email');
+            $table->string('token');
             $table->foreign('loai_tai_khoan_id')->references('id')->on('loai_tai_khoans');
             $table->timestamps();
         });

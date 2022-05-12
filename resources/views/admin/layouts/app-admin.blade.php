@@ -119,8 +119,8 @@
                                         class="ti-user me-1 ms-1"></i>
                                     Thông tin của tôi</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/change-pass"><i
-                                        class="ti-settings me-1 ms-1"></i> Đổi mật khẩu</a>
+                                <a class="dropdown-item" href="/change-pass"><i class="ti-settings me-1 ms-1"></i> Đổi
+                                    mật khẩu</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/logout"><i class="fa fa-power-off me-1 ms-1"></i> Đăng
                                     xuất</a>
@@ -157,8 +157,11 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="/eventadmin" aria-expanded="false"><i class="me-2 mdi mdi-star-circle"></i><span
                                     class="hide-menu">Sự kiện</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark tabticket" href="#"
-                                aria-expanded="false"><i class="me-2 mdi mdi-ticket"></i><span
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="/billadmin" aria-expanded="false"><i class="me-2 mdi mdi-receipt"></i><span
+                                    class="hide-menu">Hóa đơn</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark tabticket"
+                                href="#" aria-expanded="false"><i class="me-2 mdi mdi-ticket"></i><span
                                     class="hide-menu">Vé</span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="/ticketadmin" class="sidebar-link"><i
@@ -172,8 +175,9 @@
                             </ul>
                         </li>
                         @if (Auth::user()->loai_tai_khoan_id == 1)
-                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark tabaccount"
-                                    href="#" aria-expanded="false"><i class="me-2 mdi mdi-account-outline"></i><span
+                            <li class="sidebar-item"> <a
+                                    class="sidebar-link has-arrow waves-effect waves-dark tabaccount" href="#"
+                                    aria-expanded="false"><i class="me-2 mdi mdi-account-outline"></i><span
                                         class="hide-menu">Tài khoản</span></a>
                                 <ul aria-expanded="false" class="collapse  first-level">
                                     <li class="sidebar-item"><a href="/accountadmin" class="sidebar-link"><i
