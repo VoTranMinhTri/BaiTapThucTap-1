@@ -35,14 +35,25 @@ class LoaiTaiKhoanController extends Controller
      */
     public function store(Request $request)
     {
-        $loaiTaiKhoan = new LoaiTaiKhoan;
-        $loaiTaiKhoan->fill([
-            'ten_loai_tai_khoan' => $request->input('tenloaitaikhoan'),
-        ]);
-        if ($loaiTaiKhoan->save() == true){
-            return redirect()->back()->with('thongbao', 'Thêm loại tài khoản thành công !');
+        $tenloaitaikhoanformat = trim($request->input('tenloaitaikhoan'));
+        $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan', 'like', $tenloaitaikhoanformat)->first();
+        if (empty($tontai)) {
+            $ktten = str_replace(' ', '', $tenloaitaikhoanformat);
+            $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan', 'like', $ktten)->first();
+            if (empty($tontai)) {
+                $loaiTaiKhoan = new LoaiTaiKhoan;
+                $loaiTaiKhoan->fill([
+                    'ten_loai_tai_khoan' => $request->input('tenloaitaikhoan'),
+                ]);
+                if ($loaiTaiKhoan->save() == true){
+                    return redirect()->back()->with('thongbao', 'Thêm loại tài khoản thành công !');
+                }
+                return redirect()->back()->with('thongbao', 'Thêm loại tài khoản không thành công !');
+            }
         }
-        return redirect()->back()->with('thongbao', 'Thêm loại tài khoản không thành công !');
+        return redirect()->back()->with('thongbao', 'Thêm loại tài khoản không thành công ! Tên loại tài khoản đã tồn tại');
+
+
     }
 
     /**
@@ -76,13 +87,24 @@ class LoaiTaiKhoanController extends Controller
      */
     public function update(Request $request, LoaiTaiKhoan $loaiTaiKhoan)
     {
-        $loaiTaiKhoan->fill([
-            'ten_loai_tai_khoan' => $request->input('tenloaitaikhoan'),
-        ]);
-        if ($loaiTaiKhoan->save() == true){
-            return redirect()->back()->with('thongbao', 'Cập nhật loại tài khoản thành công !');
+        $tenloaitaikhoanformat = trim($request->input('tenloaitaikhoan'));
+        $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan', 'like', $tenloaitaikhoanformat)->where('id','!=',$loaiTaiKhoan->id)->first();
+        if (empty($tontai)) {
+            $ktten = str_replace(' ', '', $tenloaitaikhoanformat);
+            $tontai = LoaiTaiKhoan::where('ten_loai_tai_khoan', 'like', $ktten)->where('id','!=',$loaiTaiKhoan->id)->first();
+            if (empty($tontai)) {
+                $loaiTaiKhoan->fill([
+                    'ten_loai_tai_khoan' => $request->input('tenloaitaikhoan'),
+                ]);
+                if ($loaiTaiKhoan->save() == true){
+                    return redirect()->back()->with('thongbao', 'Cập nhật loại tài khoản thành công !');
+                }
+                return redirect()->back()->with('thongbao', 'Cập nhật loại tài khoản không thành công !');
+            }
         }
-        return redirect()->back()->with('thongbao', 'Cập nhật loại tài khoản không thành công !');
+        return redirect()->back()->with('thongbao', 'Cập nhật loại tài khoản không thành công ! Tên loại tài khoản đã tồn tại');
+
+
     }
 
     /**

@@ -147,14 +147,14 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="col-md-6">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Biểu đồ cột số vé khách hàng mua mỗi tháng</h5>
                             <div class="bars" style="height: 400px;"></div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
             <!-- End Charts -->
         </div>
