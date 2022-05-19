@@ -15,8 +15,10 @@
     <div class="main">
         @yield('content')
         {{-- Chat Zalo --}}
+        <div style="border: none; visibility: visible; bottom: 28px; right: 22px; position: fixed; width: 60px; height: 60px; left: 10px;z-index: 2147483644;">
         <div class="zalo-chat-widget" data-oaid="579745863508352884" data-welcome-message="Rất vui khi được hỗ trợ bạn!"
-            data-autopopup="0" data-width="" data-height="" style="border: none; visibility: visible; bottom: 28px; right: 22px; position: fixed; width: 60px; height: 60px; left: 10px;z-index: 2147483644;"></div>
+            data-autopopup="0" data-width="" data-height=""></div>
+        </div>
         <script src="https://sp.zalo.me/plugins/sdk.js"></script>
 
         <!-- Messenger Plugin chat Code -->
