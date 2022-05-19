@@ -76,10 +76,12 @@
                 </form>
             </div>
             <img class="lisa-picture" src="{{ asset('assets/images/lisa.png') }}" width="15%">
+
         </div>
     </div>
     <div class="navigation">
-        <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}" style="width: 100vw; height: 15vh;">
+        <img class="navigation-bg" src="{{ asset('assets/images/navigation-bg.png') }}"
+            style="width: 100vw; height: 15vh;">
         <div class="group2">
             <div class="frame22">
                 <div class="phone">
@@ -99,7 +101,6 @@
             <img class="logo" src="{{ asset('assets/images/logo.png') }}" style="width: 10%">
         </a>
     </div>
-
     <script src="{{ asset('assets/js/dropdown.js') }}"></script>
     <script src="{{ asset('assets/js/date-picker.js') }}"></script>
 @endsection
