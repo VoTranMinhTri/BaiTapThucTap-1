@@ -10,8 +10,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $loaive = ['id'=>1,'ten_loai_ve'=>'Vé cơ bản'];
-        return view('user/index', ['loaive' => $loaive]);
+        // $loaive = LoaiVe::all();
+        // return view('user/index', ['loaive' => $loaive]);
+        return view('user/index');
     }
 
     public function datve(Request $request)

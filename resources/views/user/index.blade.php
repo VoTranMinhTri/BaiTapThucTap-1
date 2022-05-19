@@ -46,10 +46,14 @@
                         <input type="text" class="textbox" placeholder="Lựa chọn loại vé" readonly>
                         <input name="loaive" type="text" class="idve" style="display: none">
                         <div class="option">
-                            @foreach ($loaive as $loai)
+                            {{-- @foreach ($loaive as $loai)
                                 <div onclick="show('{{ $loai->ten_loai_ve }}','{{ $loai->id }}')">
                                     {{ $loai->ten_loai_ve }}</div>
-                            @endforeach
+                            @endforeach --}}
+                            <div onclick="show('Vé cơ bản','1')">
+                                Vé cơ bản</div>
+                            <div onclick="show('Vé trọn gói','2')">
+                                Vé trọn gói</div>
                         </div>
                     </div>
                     <button type="button" class="btn-dropdown"></button>
