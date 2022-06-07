@@ -10,8 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // $loaive = LoaiVe::all();
-        // return view('user/index', ['loaive' => $loaive]);
+        $loaive = LoaiVe::all();
+        return view('user/index', ['loaive' => $loaive]);
         return view('user/index');
     }
 
